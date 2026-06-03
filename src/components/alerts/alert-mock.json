@@ -1,0 +1,168 @@
+[
+{
+"alert_id": 37013,
+"effect_name": "Service Advisory",
+"effect": "OTHER_EFFECT",
+"cause_name": "construction",
+"cause": "CONSTRUCTION",
+"header_text": "Route 46 detoured off 50th St/Vernon Ave from Eden Ave to Eden Ave beginning Wed Apr 23 at 5:00 AM until further notice due to construction",
+"short_header_text": "Route 46 detoured off 50th St/Vernon Ave from Eden Ave to Eden Ave beginning Wed Apr 23 at 5am until further notice",
+"url": "https://www.metrotransit.org/route/46",
+"description_text": "For eastbound Route 46 get on/off buses at:\r\nEden-Vernon Busway & Sherwood/Vernon Ave - Stop #220 (westbound)\r\nTemporary stop Eden Ave & Arcadia Ave (eastbound)\r\nTemporary stop Eden Ave & 50th St W (eastbound)\r\n50th St W & Browndale Ave - Stop #982 (eastbound)\r\n\nFor westbound Route 46 get on/off buses at:\r\n50th St W & Browndale Ave - Stop #214 (westbound)\r\nTemporary stop Eden Ave & Grange Rd (westbound)\r\nTemporary stop Eden Ave & Arcadia Ave (westbound)\r\nEden-Vernon Busway & Sherwood/Vernon Ave - Stop #220 (westbound)\r\n\nEastbound buses will travel regular route on Vernon Ave to Eden Ave, right on Eden, right on 50th St, and resume regular route.\r\n\nWestbound buses will travel regular route on 50th St to Eden Ave, left on Eden, left on Sherwood Rd, and resume regular route.\r\n\nAffected stops:\r\nVernon Ave & Eden Ave - Stop #542 (northbound)\r\nVernon Ave & #5101 - Stop #543 (northbound)\r\nVernon Ave & Interlachen Blvd - Stop #544 (eastbound)\r\nVernon Ave & Arcadia Ave - Stop #545 (eastbound)\r\n50th St W & Edina City Hall - Stop #979 (eastbound)\r\n50th St W & Grange Rd - Stop #216 (westbound)\r\nVernon Ave & Interlachen Blvd - Stop #217 (westbound)\r\nVernon Ave & Wells Fargo Bank - Stop #218 (southbound)\r\nEden Ave & Vernon Ave / Sherwood Rd - Stop #219 (eastbound)",
+"severity": "Minor",
+"created_dt": "1749823593",
+"last_modified_dt": "1750428362",
+"tts_description_text": null,
+"service_effect_text": "Route 46 service advisory",
+"timeframe_text": "Ongoing",
+"alert_lifecycle": "Ongoing",
+"effect_periods": [
+{
+"effect_start": "1749823560",
+"effect_end": ""
+}
+],
+"affected_services": {
+"services": [
+{
+"route_type": "3",
+"mode_name": "Bus",
+"route_id": "46",
+"route_name": "46"
+}
+],
+"elevators": []
+},
+"images": [
+{
+"url": "https://www.metrotransit.org/Data/sites/1/media/alert-maps/46-50theden-269551.png",
+"media_type": "image/png",
+"sort_order": "1"
+}
+]
+},
+{
+"alert_id": 38046,
+"effect_name": "Internal Announcement",
+"effect": "OTHER_EFFECT",
+"cause_name": "construction",
+"cause": "CONSTRUCTION",
+"header_text": "Internal announcement: Southbound 18D detoured off American Blvd from 2nd Ave to 5th Ave",
+"short_header_text": "Internal announcement: Southbound 18D detoured off American Blvd from 2nd Ave to 5th Ave",
+"url": "https://www.metrotransit.org/route/18",
+"description_text": "Affected routes:\r\n18\r\n\nNo stops missed.\r\n\nNorthbound buses leaving the D terminal will travel regular route.\r\n\nSouthbound 18D will travel regular route on American Blvd to 2nd Ave, left on 2nd Ave, left into turnaround for layover.\r\n\nAffected direction: Southbound",
+"severity": "Information",
+"created_dt": "1752498542",
+"last_modified_dt": "1754592699",
+"tts_description_text": null,
+"service_effect_text": "Internal announcement: Route 18",
+"timeframe_text": "ongoing",
+"alert_lifecycle": "Ongoing",
+"effect_periods": [
+{
+"effect_start": "1752498480",
+"effect_end": ""
+}
+],
+"affected_services": {
+"services": [
+{
+"route_type": "3",
+"mode_name": "Bus",
+"route_id": "18",
+"route_name": "18",
+"direction_id": "1",
+"direction_name": "Southbound"
+}
+],
+"elevators": []
+}
+},
+{
+"alert_id": 40369,
+"effect_name": "Stop Closure",
+"effect": "NO_SERVICE",
+"cause": "UNKNOWN_CAUSE",
+"header_text": "44th Ave N & James Ave N - Stop #9599 (eastbound) is closed for Route 5 until further notice on weekdays from 3:15 PM to 3:45 PM",
+"short_header_text": "44th Ave N & James Ave N - Stop #9599 is closed for Route 5 until further notice on weekdays from 3:15pm to 3:45pm",
+"url": "https://www.metrotransit.org/route/5",
+"description_text": "Get on/off buses at:\r\n44th Ave N & Morgan Ave N - Stop #9593 (eastbound)\r\n44th Ave & Girard Station - Stop #56903 (eastbound)",
+"severity": "Moderate",
+"created_dt": "1759176240",
+"last_modified_dt": "1761768901",
+"tts_description_text": null,
+"service_effect_text": "44th Ave N & James Ave N - Stop #9599 (eastbound) closed",
+"timeframe_text": "Ongoing",
+"alert_lifecycle": "Upcoming-Ongoing",
+"recurrence_text": "weekdays",
+"effect_periods": [
+{
+"effect_start": "1780431300",
+"effect_end": "1780433100"
+},
+{
+"effect_start": "1780517700",
+"effect_end": "1780519500"
+},
+{
+"effect_start": "1780604100",
+"effect_end": "1780605900"
+},
+{
+"effect_start": "1780690500",
+"effect_end": "1780692300"
+},
+{
+"effect_start": "1780949700",
+"effect_end": "1780951500"
+},
+{
+"effect_start": "1781036100",
+"effect_end": "1781037900"
+},
+{
+"effect_start": "1781122500",
+"effect_end": "1781124300"
+},
+{
+"effect_start": "1781208900",
+"effect_end": "1781210700"
+},
+{
+"effect_start": "1781295300",
+"effect_end": "1781297100"
+},
+{
+"effect_start": "1781554500",
+"effect_end": "1781556300"
+}
+],
+"affected_services": {
+"services": [
+{
+"route_type": "3",
+"mode_name": "Bus",
+"route_id": "5",
+"route_name": "5",
+"stop_id": "9599",
+"stop_name": "44th Ave N & James Ave N"
+}
+],
+"elevators": []
+},
+"alternate_stops": [
+{
+"route_name": "5",
+"direction_name": "Southbound",
+"stop_id": "9593",
+"stop_name": "44th Ave N & Morgan Ave N - Stop #9593 (eastbound)"
+},
+{
+"route_name": "5",
+"direction_name": "Southbound",
+"stop_id": "56903",
+"stop_name": "44th Ave & Girard Station - Stop #56903 (eastbound)"
+}
+]
+}
+]
