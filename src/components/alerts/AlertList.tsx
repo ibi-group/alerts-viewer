@@ -1,14 +1,15 @@
 import React from 'react';
 import type { Alert as AlertType } from './types';
-import Alert from './Alert';
+import AlertListItem from './AlertListItem';
 
 export interface AlertListProps {
   alerts: AlertType[];
+  onAlertClick?: (alert: AlertType) => void;
 }
 
 export default class AlertList extends React.Component<AlertListProps> {
   render() {
-    const { alerts } = this.props;
+    const { alerts, onAlertClick } = this.props;
 
     if (alerts.length === 0) {
       return <div className="alert-list__empty">No alerts found</div>;
@@ -17,7 +18,11 @@ export default class AlertList extends React.Component<AlertListProps> {
     return (
       <div className="alert-list">
         {alerts.map((alert) => (
-          <Alert key={alert.alert_id} alert={alert} />
+          <AlertListItem 
+            key={alert.alert_id} 
+            alert={alert}
+            onClick={onAlertClick}
+          />
         ))}
       </div>
     );

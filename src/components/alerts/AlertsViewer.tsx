@@ -3,11 +3,11 @@ import './AlertsViewer.css';
 import type { Alert, AlertsViewerProps } from './types';
 import FilterOptions from './FilterOptions';
 import AlertList from './AlertList';
+import AlertBody from './AlertBody';
 
 interface AlertsViewerState {
   searchValue: string;
-  showExpiredAlerts: boolean;
-  showNonExpiredAlerts: boolean;
+  selectedAlert: Alert | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -15,14 +15,9 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     super(props);
     this.state = {
       searchValue: '',
-      showExpiredAlerts: true,
-      showNonExpiredAlerts: true,
+      selectedAlert: null,
     };
   }
-
-  private isAlertExpired = (alert: Alert): boolean => {
-    return alert.effect_periods.some((period) => period.effect_end !== '');
-  };
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
     if (!searchValue.trim()) return true;
@@ -36,21 +31,20 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
   private getFilteredAlerts = (): Alert[] => {
     const { alerts = [] } = this.props;
-    const { searchValue, showExpiredAlerts, showNonExpiredAlerts } = this.state;
+    const { searchValue } = this.state;
 
     return alerts.filter((alert) => {
-      const isExpired = this.isAlertExpired(alert);
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
-
-      const matchesAlertStatus =
-        (isExpired && showExpiredAlerts) || (!isExpired && showNonExpiredAlerts);
-
-      return matchesSearch && matchesAlertStatus;
+      return matchesSearch;
     });
   };
 
+  private handleAlertClick = (alert: Alert): void => {
+    this.setState({ selectedAlert: alert });
+  };
+
   render() {
-    const { searchValue, showExpiredAlerts, showNonExpiredAlerts } = this.state;
+    const { searchValue, selectedAlert } = this.state;
     const filteredAlerts = this.getFilteredAlerts();
 
     return (
@@ -58,15 +52,13 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         <FilterOptions
           searchValue={searchValue}
           onSearchChange={(value) => this.setState({ searchValue: value })}
-          showExpiredAlerts={showExpiredAlerts}
-          onExpiredAlertsChange={(checked) => this.setState({ showExpiredAlerts: checked })}
-          showNonExpiredAlerts={showNonExpiredAlerts}
-          onNonExpiredAlertsChange={(checked) =>
-            this.setState({ showNonExpiredAlerts: checked })
-          }
         />
-        <AlertList alerts={filteredAlerts} />
+        <div className="alerts-viewer__container">
+          <AlertList alerts={filteredAlerts} onAlertClick={this.handleAlertClick} />
+          <AlertBody alert={selectedAlert} />
+        </div>
       </div>
     );
   }
 }
+

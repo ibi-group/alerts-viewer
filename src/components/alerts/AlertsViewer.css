@@ -5,6 +5,248 @@
   padding: 1rem;
 }
 
+.alerts-viewer__container {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+
+.alert-list {
+  flex: 0 0 66.666%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  border-right: 1px solid #e0e0e0;
+  padding-right: 1rem;
+}
+
+.alert-list__empty {
+  text-align: center;
+  color: #999;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+
+.alert-list-item {
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-left: 4px solid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.alert-list-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(4px);
+}
+
+.alert-list-item:focus {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+.alert-list-item--info {
+  background-color: #e3f2fd;
+  border-left-color: #2196f3;
+  color: #1565c0;
+}
+
+.alert-list-item--warning {
+  background-color: #fff3e0;
+  border-left-color: #ff9800;
+  color: #e65100;
+}
+
+.alert-list-item--error {
+  background-color: #ffebee;
+  border-left-color: #f44336;
+  color: #c62828;
+}
+
+.alert-list-item--success {
+  background-color: #e8f5e9;
+  border-left-color: #4caf50;
+  color: #2e7d32;
+}
+
+.alert-list-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.alert-list-item__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.alert-list-item__effect {
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.alert-list-item__cause {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.alert-body {
+  flex: 0 0 33.333%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.alert-body--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-style: italic;
+  min-height: 200px;
+}
+
+.alert-body__header {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.alert-body__title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.alert-body__subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.alert-body__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert-body__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.alert-body__section-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.alert-body__text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.alert-body__services-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.alert-body__service-item {
+  background-color: #fff;
+  padding: 0.75rem;
+  border-radius: 3px;
+  border-left: 3px solid #2196f3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.alert-body__service-route {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2196f3;
+}
+
+.alert-body__service-name {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.alert-body__severity {
+  margin: 0;
+}
+
+.alert-body__severity-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.alert-body__severity-badge--info {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.alert-body__severity-badge--warning {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.alert-body__severity-badge--error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.alert-body__severity-badge--success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.alert-body__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #2196f3;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.alert-body__link:hover {
+  background-color: #1976d2;
+}
+
 .alerts-viewer__empty {
   text-align: center;
   color: #999;
