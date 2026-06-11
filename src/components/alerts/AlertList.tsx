@@ -12,7 +12,7 @@ export default class AlertList extends React.Component<AlertListProps> {
     const { alerts, onAlertClick } = this.props;
 
     if (alerts.length === 0) {
-      return <div className="alert-list__empty">No alerts found</div>;
+      return <div className="alert-list">No alerts found</div>;
     }
 
     return (

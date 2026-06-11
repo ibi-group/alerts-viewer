@@ -49,4 +49,5 @@ export type Alert = {
 
 export interface AlertsViewerProps {
   alerts?: Alert[];
+  apiUrl?: string;
 }

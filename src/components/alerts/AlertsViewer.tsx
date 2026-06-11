@@ -8,6 +8,8 @@ import AlertBody from './AlertBody';
 interface AlertsViewerState {
   searchValue: string;
   selectedAlert: Alert | null;
+  alerts: Alert[];
+  error: string | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -16,7 +18,31 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     this.state = {
       searchValue: '',
       selectedAlert: null,
+      alerts: this.props.alerts ?? [],
+      error: null,
     };
+  }
+
+  componentDidMount() {
+    if (!this.props.alerts || this.props.alerts.length === 0) {
+      if (!this.props.apiUrl) {
+        this.setState({ error: 'No API URL provided' });
+        return;
+      }
+      fetch(this.props.apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({ alerts: data.alerts, error: null });
+        })
+        .catch((err: Error) => {
+          this.setState({ error: err.message });
+        });
+    }
   }
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
@@ -30,8 +56,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   private getFilteredAlerts = (): Alert[] => {
-    const { alerts = [] } = this.props;
-    const { searchValue } = this.state;
+    const { alerts, searchValue } = this.state;
 
     return alerts.filter((alert) => {
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
@@ -46,9 +71,11 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   render() {
     const { searchValue, selectedAlert } = this.state;
     const filteredAlerts = this.getFilteredAlerts();
-
     return (
       <div className="alerts-viewer">
+        {this.state.error && (
+          <div className="alerts-viewer__error">{this.state.error}</div>
+        )}
         <FilterOptions
           searchValue={searchValue}
           onSearchChange={(value) => this.setState({ searchValue: value })}
