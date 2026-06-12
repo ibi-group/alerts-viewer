@@ -11,6 +11,26 @@
   flex: 1;
 }
 
+.alerts-viewer__title {
+  margin-top: 0;
+  border-bottom: solid 1px #adadad;
+  padding: 5px 0px 10px 0px;
+}
+
+.filter-options {
+  padding-bottom: 2rem;
+}
+
+.filter-options__search-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.filter-options__input {
+  margin-left: 10px;
+  width: 60%;
+}
+
 .alert-list {
   flex: 0 0 60%;
   display: flex;

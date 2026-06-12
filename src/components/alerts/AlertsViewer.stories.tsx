@@ -32,8 +32,9 @@ export const SingleAlert: Story = {
   },
 };
 
-export const ExpiredAlert: Story = {
+// TODO: add a story for expired alerts once API is done.
+/* export const ExpiredAlert: Story = {
   args: {
     alerts: [alertMocks[2]]
   },
-};
+}; */

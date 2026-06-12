@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@styled-icons/fa-solid": "^10.34.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

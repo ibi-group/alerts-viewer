@@ -73,6 +73,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     const filteredAlerts = this.getFilteredAlerts();
     return (
       <div className="alerts-viewer">
+        <h1 className="alerts-viewer__title">Alerts</h1>
         {this.state.error && (
           <div className="alerts-viewer__error">{this.state.error}</div>
         )}
