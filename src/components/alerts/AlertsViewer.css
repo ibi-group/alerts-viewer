@@ -16,8 +16,12 @@
   padding: 5px 0px 10px 0px;
 }
 
+.alerts-viewer__title h1 {
+  padding-left: 14rem;
+}
+
 .alerts-viewer__content {
-  padding: 20px;
+  padding: 0 14rem;
 }
 
 .filter-options {
