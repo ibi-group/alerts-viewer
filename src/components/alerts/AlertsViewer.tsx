@@ -73,17 +73,21 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     const filteredAlerts = this.getFilteredAlerts();
     return (
       <div className="alerts-viewer">
-        <h1 className="alerts-viewer__title">Alerts</h1>
-        {this.state.error && (
-          <div className="alerts-viewer__error">{this.state.error}</div>
-        )}
-        <FilterOptions
-          searchValue={searchValue}
-          onSearchChange={(value) => this.setState({ searchValue: value })}
-        />
-        <div className="alerts-viewer__container">
-          <AlertList alerts={filteredAlerts} onAlertClick={this.handleAlertClick} />
-          <AlertBody alert={selectedAlert} />
+        <div className="alerts-viewer__title">
+          <h1>Alerts</h1>
+          {this.state.error && (
+            <div className="alerts-viewer__error">{this.state.error}</div>
+          )}
+        </div>
+        <div className="alerts-viewer__content">
+          <FilterOptions
+            searchValue={searchValue}
+            onSearchChange={(value) => this.setState({ searchValue: value })}
+          />
+          <div className="alerts-viewer__container">
+            <AlertList alerts={filteredAlerts} onAlertClick={this.handleAlertClick} />
+            <AlertBody alert={selectedAlert} />
+          </div>
         </div>
       </div>
     );
