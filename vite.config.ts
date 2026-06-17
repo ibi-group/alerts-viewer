@@ -12,6 +12,12 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [react()],
+    build: {
+    rollupOptions: {
+      // Mark react/jsx-runtime as external so Rollup doesn't try to bundle it
+      external: ['react', 'react/jsx-runtime', 'react-dom'],
+    },
+  },
   test: {
     projects: [{
       extends: true,
