@@ -3,12 +3,13 @@ import type { Alert as AlertType } from './types';
 
 export interface AlertListItemProps {
   alert: AlertType;
+  EffectIcon?: React.ComponentType<{ effect: string }>;
   onClick?: (alert: AlertType) => void;
 }
 
 export default class AlertListItem extends React.Component<AlertListItemProps> {
   render() {
-    const { alert, onClick } = this.props;
+    const { alert, EffectIcon, onClick } = this.props;
     const title = alert.short_header_text || alert.header_text;
 
     return (
@@ -25,7 +26,11 @@ export default class AlertListItem extends React.Component<AlertListItemProps> {
       >
         <div className="alert-list-item__header">
           <h4 className="alert-list-item__title">{title}</h4>
-          <span className="alert-list-item__effect">{alert.effect_name}</span>
+          {EffectIcon ? (
+            <span className="alert-list-item__effect">
+              <EffectIcon effect={alert.effect_name} />
+            </span>
+          ) : null}
         </div>
         {alert.cause_name && (
           <p className="alert-list-item__cause">{alert.cause_name}</p>
