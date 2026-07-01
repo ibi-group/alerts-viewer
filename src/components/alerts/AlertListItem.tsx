@@ -25,16 +25,13 @@ export default class AlertListItem extends React.Component<AlertListItemProps> {
         }}
       >
         <div className="alert-list-item__header">
-          <h4 className="alert-list-item__title">{title}</h4>
           {EffectIcon ? (
             <span className="alert-list-item__effect">
               <EffectIcon effect={alert.effect_name} />
             </span>
           ) : null}
+          <h4 className="alert-list-item__title">{title}</h4>
         </div>
-        {alert.cause_name && (
-          <p className="alert-list-item__cause">{alert.cause_name}</p>
-        )}
       </div>
     );
   }
