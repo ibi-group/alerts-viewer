@@ -85,7 +85,12 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
             onSearchChange={(value) => this.setState({ searchValue: value })}
           />
           <div className="alerts-viewer__container">
-            <AlertList alerts={filteredAlerts} onAlertClick={this.handleAlertClick} />
+            <AlertList
+              alerts={filteredAlerts}
+              // prop drilling?
+              EffectIcon={this.props.EffectIcon}
+              onAlertClick={this.handleAlertClick} 
+            />
             <AlertBody alert={selectedAlert} />
           </div>
         </div>

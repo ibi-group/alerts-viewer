@@ -4,6 +4,7 @@ import AlertListItem from './AlertListItem';
 
 export interface AlertListProps {
   alerts: AlertType[];
+  EffectIcon?: React.ComponentType<{ effect: string }>;
   onAlertClick?: (alert: AlertType) => void;
 }
 
@@ -19,8 +20,9 @@ export default class AlertList extends React.Component<AlertListProps> {
       <div className="alert-list">
         {alerts.map((alert) => (
           <AlertListItem 
-            key={alert.alert_id} 
             alert={alert}
+            EffectIcon={this.props.EffectIcon}
+            key={alert.alert_id} 
             onClick={onAlertClick}
           />
         ))}
