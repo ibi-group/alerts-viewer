@@ -87,7 +87,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           <div className="alerts-viewer__container">
             <AlertList
               alerts={filteredAlerts}
-              // prop drilling?
+              // TODO: prop drilling?
               EffectIcon={this.props.EffectIcon}
               onAlertClick={this.handleAlertClick} 
             />
