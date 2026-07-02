@@ -24,6 +24,31 @@
   padding: 0 14rem;
 }
 
+.alerts-viewer__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 220px;
+  color: #666;
+  font-size: 1rem;
+}
+
+.alerts-viewer__spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #e0e0e0;
+  border-top-color: #2196f3;
+  border-radius: 50%;
+  animation: alerts-viewer-spin 0.8s linear infinite;
+}
+
+@keyframes alerts-viewer-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .filter-options {
   padding-bottom: 2rem;
 }
