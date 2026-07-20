@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from "date-fns";
 import type { Alert } from './types';
 
 export interface AlertBodyProps {
@@ -6,6 +7,25 @@ export interface AlertBodyProps {
 }
 
 export default class AlertBody extends React.Component<AlertBodyProps> {
+  private renderEffectPeriods = (periods: { effect_start: string; effect_end: string }[]) => {
+    if (!periods || periods.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="alert-body__subtitle">
+        {periods.map((p, idx) => {
+          const start = format(new Date(Number(p.effect_start) * 1000), 'MM/dd/yyyy h:mm a');
+          const end = p.effect_end ? format(new Date(Number(p.effect_end) * 1000), 'MM/dd/yyyy h:mm a') : 'Until further notice';
+          return (
+            <p key={idx} className="alert-body__period">
+              {start} — {end}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
   render() {
     const { alert } = this.props;
 
@@ -17,9 +37,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
       <div className="alert-body">
         <div className="alert-body__header">
           <h3 className="alert-body__title">{alert.header_text}</h3>
-          {alert.short_header_text && alert.short_header_text !== alert.header_text && (
-            <p className="alert-body__subtitle">{alert.short_header_text}</p>
-          )}
+          {this.renderEffectPeriods(alert.effect_periods)}
         </div>
 
         <div className="alert-body__content">
@@ -67,15 +85,6 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
               </ul>
             </div>
           )}
-
-          <div className="alert-body__section">
-            <h4 className="alert-body__section-title">Severity</h4>
-            <p className="alert-body__severity">
-              <span className={`alert-body__severity-badge alert-body__severity-badge--${alert.severity.toLowerCase()}`}>
-                {alert.severity}
-              </span>
-            </p>
-          </div>
 
           {alert.url && (
             <div className="alert-body__section">

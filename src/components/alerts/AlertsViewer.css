@@ -224,38 +224,6 @@
   color: #666;
 }
 
-.alert-body__severity {
-  margin: 0;
-}
-
-.alert-body__severity-badge {
-  display: inline-block;
-  padding: 0.4rem 0.8rem;
-  border-radius: 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.alert-body__severity-badge--info {
-  background-color: #e3f2fd;
-  color: #1565c0;
-}
-
-.alert-body__severity-badge--warning {
-  background-color: #fff3e0;
-  color: #e65100;
-}
-
-.alert-body__severity-badge--error {
-  background-color: #ffebee;
-  color: #c62828;
-}
-
-.alert-body__severity-badge--success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
 .alert-body__link {
   display: inline-block;
   margin-top: 0.5rem;
