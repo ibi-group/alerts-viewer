@@ -58,20 +58,6 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
             <p className="alert-body__text">{alert.description_text}</p>
           </div>
 
-          {alert.service_effect_text && (
-            <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Service Effect</h4>
-              <p className="alert-body__text">{alert.service_effect_text}</p>
-            </div>
-          )}
-
-          {alert.timeframe_text && (
-            <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Timeframe</h4>
-              <p className="alert-body__text">{alert.timeframe_text}</p>
-            </div>
-          )}
-
           {alert.affected_services && alert.affected_services.services.length > 0 && (
             <div className="alert-body__section">
               <h4 className="alert-body__section-title">Affected Services</h4>
