@@ -72,11 +72,16 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
             </div>
           )}
 
-          {alert.url && (
+          {alert.images && alert.images.length > 0 && (
             <div className="alert-body__section">
-              <a href={alert.url} target="_blank" rel="noopener noreferrer" className="alert-body__link">
-                View More Details
-              </a>
+              <h4 className="alert-body__section-title">Images</h4>
+              <div className="alert-body__images">
+                {alert.images.map((image, idx) => (
+                  <a key={idx} href={image.url} target="_blank" rel="noopener noreferrer" className="alert-body__image-link">  
+                    View image
+                  </a>
+                ))}
+              </div>
             </div>
           )}
         </div>
