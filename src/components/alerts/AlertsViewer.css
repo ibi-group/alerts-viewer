@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-size: 1.2rem;
 }
 
 .alerts-viewer__container {
@@ -26,6 +27,7 @@
 
 .filter-options {
   padding-bottom: 2rem;
+  font-size: 1.6rem;
 }
 
 .filter-options__search-icon {
@@ -109,19 +111,19 @@
 
 .alert-list-item__title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
 }
 
 .alert-list-item__effect {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   font-weight: 500;
   white-space: nowrap;
 }
 
 .alert-list-item__cause {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   opacity: 0.8;
 }
 
@@ -154,14 +156,14 @@
 
 .alert-body__title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   font-weight: 700;
   color: #333;
 }
 
 .alert-body__subtitle {
   margin: 0.5rem 0 0 0;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   color: #666;
 }
 
@@ -179,7 +181,7 @@
 
 .alert-body__section-title {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   font-weight: 600;
   color: #555;
   text-transform: uppercase;
@@ -188,7 +190,7 @@
 
 .alert-body__text {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   color: #333;
   line-height: 1.5;
   white-space: pre-line;
@@ -215,12 +217,12 @@
 
 .alert-body__service-route {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   color: #2196f3;
 }
 
 .alert-body__service-name {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   color: #666;
 }
 
@@ -232,7 +234,7 @@
   color: white;
   text-decoration: none;
   border-radius: 3px;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   font-weight: 500;
   transition: background-color 0.2s ease;
 }
@@ -296,14 +298,14 @@
 
 .alert__title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
 }
 
 .alert__close {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   cursor: pointer;
   padding: 0;
   color: inherit;
@@ -317,10 +319,10 @@
 
 .alert__message {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.95em;
 }
 
 .alert__timestamp {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   opacity: 0.7;
 }

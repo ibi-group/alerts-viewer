@@ -84,6 +84,11 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
               </div>
             </div>
           )}
+
+          <div className="alert-body__section">
+            <h4 className="alert-body__section-title">Alert ID</h4>
+            <p className="alert-body__text">{alert.alert_id}</p>
+          </div>
         </div>
       </div>
     );
