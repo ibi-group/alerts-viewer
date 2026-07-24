@@ -60,16 +60,13 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
 
           {alert.affected_services && alert.affected_services.services.length > 0 && (
             <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Affected Services</h4>
+              <h4 className="alert-body__section-title">Affected Services:</h4>
               <ul className="alert-body__services-list">
                 {alert.affected_services.services
                   .filter((service, idx, arr) => arr.findIndex(s => s.route_id === service.route_id) === idx)
                   .map((service) => (
                     <li key={service.route_id} className="alert-body__service-item">
-                      <span className="alert-body__service-route">{service.route_id}</span>
-                      {service.route_name !== service.route_id && (
-                        <span className="alert-body__service-name">{service.route_name}</span>
-                      )}
+                      {service.route_id}
                     </li>
                   ))}
               </ul>

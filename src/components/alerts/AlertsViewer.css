@@ -182,9 +182,7 @@
 .alert-body__section-title {
   margin: 0;
   font-size: 0.9em;
-  font-weight: 600;
-  color: #555;
-  text-transform: uppercase;
+  font-weight: bold;
   letter-spacing: 0.5px;
 }
 
@@ -199,31 +197,14 @@
 .alert-body__services-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-left: 15px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.alert-body__service-item {
-  background-color: #fff;
-  padding: 0.75rem;
-  border-radius: 3px;
-  border-left: 3px solid #2196f3;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.alert-body__service-route {
-  font-weight: 600;
-  font-size: 0.9em;
-  color: #2196f3;
-}
-
-.alert-body__service-name {
-  font-size: 0.85em;
-  color: #666;
+.alert-body__service-item::before {
+  content: "- ";
 }
 
 .alert-body__link {
