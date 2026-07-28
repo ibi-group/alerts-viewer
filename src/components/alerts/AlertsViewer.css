@@ -8,6 +8,7 @@
   display: flex;
   gap: 1rem;
   flex: 1;
+  min-height: 550px;
 }
 
 .alerts-viewer__title {
@@ -24,22 +25,17 @@
   padding: 0 14rem;
 }
 
-.alerts-viewer__loading {
+.loading {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
   min-height: 220px;
-  color: #666;
-  font-size: 1rem;
 }
 
-.alerts-viewer__spinner {
-  width: 2rem;
-  height: 2rem;
-  border: 3px solid #e0e0e0;
-  border-top-color: #2196f3;
-  border-radius: 50%;
+.spinner {
+  width: 4rem;
+  height: 4rem;
   animation: alerts-viewer-spin 0.8s linear infinite;
 }
 

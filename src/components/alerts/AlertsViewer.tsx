@@ -86,23 +86,14 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           )}
         </div>
         <div className="alerts-viewer__content">
-          {loading ? (
-            <div className="alerts-viewer__loading" role="status" aria-live="polite">
-              <div className="alerts-viewer__spinner" aria-hidden="true" />
-              <span>Loading alerts...</span>
-            </div>
-          ) : (
-            <>
-              <FilterOptions
-                searchValue={searchValue}
-                onSearchChange={(value) => this.setState({ searchValue: value })}
-              />
-              <div className="alerts-viewer__container">
-                <AlertList alerts={filteredAlerts} onAlertClick={this.handleAlertClick} />
-                <AlertBody alert={selectedAlert} />
-              </div>
-            </>
-          )}
+          <FilterOptions
+            searchValue={searchValue}
+            onSearchChange={(value) => this.setState({ searchValue: value })}
+          />
+          <div className="alerts-viewer__container">
+            <AlertList alerts={filteredAlerts} loading={true} onAlertClick={this.handleAlertClick} />
+            <AlertBody alert={selectedAlert} />
+          </div>
         </div>
       </div>
     );
