@@ -33,7 +33,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         .then(async (response) => {
           const data = await response.json();
           if (!response.ok) {
-            const message = data?.error?.message || `Error: ${response.status} ${response.statusText}`;
+            const message = data?.error?.message ? `Error: ${data.error.message}` : `Error: ${response.status} ${response.statusText}`;
             throw new Error(message);
           }
           return data;
