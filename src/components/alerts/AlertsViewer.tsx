@@ -30,11 +30,13 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
       fetch(this.props.apiUrl)
-        .then((response) => {
+        .then(async (response) => {
+          const data = await response.json();
           if (!response.ok) {
-            throw new Error(`API error: ${response.status} ${response.statusText}`);
+            const message = data?.error?.message || `Error: ${response.status} ${response.statusText}`;
+            throw new Error(message);
           }
-          return response.json();
+          return data;
         })
         .then((data) => {
           this.setState({ alerts: data.alerts, error: null });
