@@ -207,21 +207,12 @@
   content: "- ";
 }
 
-.alert-body__link {
-  display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #2196f3;
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-}
-
-.alert-body__link:hover {
-  background-color: #1976d2;
+.alert-body__image-link {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .alerts-viewer__empty {

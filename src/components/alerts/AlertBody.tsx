@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from "date-fns";
+import { ExternalLinkAlt } from '@styled-icons/fa-solid/ExternalLinkAlt'
 import type { Alert } from './types';
 
 export interface AlertBodyProps {
@@ -7,7 +8,7 @@ export interface AlertBodyProps {
 }
 
 export default class AlertBody extends React.Component<AlertBodyProps> {
-  private renderEffectPeriods = (periods: { effect_start: string; effect_end: string }[]) => {
+  private renderEffectPeriods = (periods: { effect_start: string; effect_end?: string }[]) => {
     if (!periods || periods.length === 0) {
       return null;
     }
@@ -36,7 +37,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
     return (
       <div className="alert-body">
         <div className="alert-body__header">
-          <h3 className="alert-body__title">{alert.header_text}</h3>
+          <h2 className="alert-body__title">{alert.header_text}</h2>
           {this.renderEffectPeriods(alert.effect_periods)}
         </div>
 
@@ -78,8 +79,13 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
               <h4 className="alert-body__section-title">Images</h4>
               <div className="alert-body__images">
                 {alert.images.map((image, idx) => (
+                  // TODO: find a way to use externalLink.tsx from otp-rr. move to otp-ui?
                   <a key={idx} href={image.url} target="_blank" rel="noopener noreferrer" className="alert-body__image-link">  
                     View image
+                    <ExternalLinkAlt 
+                      height="1.2rem"
+                      title="(Opens new window)"
+                    />
                   </a>
                 ))}
               </div>
