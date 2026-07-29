@@ -195,16 +195,12 @@
 }
 
 .alert-body__services-list {
-  list-style: none;
+  list-style: "- ";
   margin: 0;
   padding-left: 15px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.alert-body__service-item::before {
-  content: "- ";
 }
 
 .alert-body__image-link {
