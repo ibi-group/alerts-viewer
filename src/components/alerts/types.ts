@@ -31,6 +31,8 @@ export type Alert = {
   cause?: string;
   header_text: string;
   short_header_text: string;
+  atis_title?: string;
+  tags?: string[];
   url: string;
   description_text: string;
   severity: string;

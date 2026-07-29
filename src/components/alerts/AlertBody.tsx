@@ -84,6 +84,13 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
               </a>
             </div>
           )}
+
+          {alert.tags && alert.tags.length > 0 && (
+            <div className="alert-body__section alert-body__tags">
+              <h4 className="alert-body__section-title">Tags</h4>
+              <p className="alert-body__text">{alert.tags.join(', ')}</p>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ export interface AlertListItemProps {
 export default class AlertListItem extends React.Component<AlertListItemProps> {
   render() {
     const { alert, EffectIcon, onClick } = this.props;
-    const title = alert.short_header_text || alert.header_text;
+    const title = alert.atis_title || alert.short_header_text || alert.header_text;
 
     return (
       <div 
