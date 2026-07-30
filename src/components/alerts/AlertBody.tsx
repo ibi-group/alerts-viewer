@@ -43,25 +43,25 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
 
         <div className="alert-body__content">
           <div className="alert-body__section">
-            <h4 className="alert-body__section-title">Effect</h4>
+            <h3 className="alert-body__section-title">Effect</h3>
             <p className="alert-body__text">{alert.effect_name}</p>
           </div>
 
           {alert.cause_name && (
             <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Cause</h4>
+              <h3 className="alert-body__section-title">Cause</h3>
               <p className="alert-body__text">{alert.cause_name}</p>
             </div>
           )}
 
           <div className="alert-body__section">
-            <h4 className="alert-body__section-title">Description</h4>
+            <h3 className="alert-body__section-title">Description</h3>
             <p className="alert-body__text">{alert.description_text}</p>
           </div>
 
           {alert.affected_services && alert.affected_services.services.length > 0 && (
             <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Affected Services:</h4>
+              <h3 className="alert-body__section-title">Affected Services:</h3>
               <ul className="alert-body__services-list">
                 {alert.affected_services.services
                   .filter((service, idx, arr) => arr.findIndex(s => s.route_id === service.route_id) === idx)
@@ -76,7 +76,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
 
           {alert.images && alert.images.length > 0 && (
             <div className="alert-body__section">
-              <h4 className="alert-body__section-title">Images</h4>
+              <h3 className="alert-body__section-title">Images</h3>
               <div className="alert-body__images">
                 {alert.images.map((image, idx) => (
                   // TODO: find a way to use externalLink.tsx from otp-rr. move to otp-ui?
@@ -93,7 +93,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
           )}
 
           <div className="alert-body__section">
-            <h4 className="alert-body__section-title">Alert ID</h4>
+            <h3 className="alert-body__section-title">Alert ID</h3>
             <p className="alert-body__text">{alert.alert_id}</p>
           </div>
         </div>
