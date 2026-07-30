@@ -29,7 +29,14 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         this.setState({ error: 'No API URL provided' });
         return;
       }
-      fetch(this.props.apiUrl)
+
+      const now = Math.floor(Date.now() / 1000);
+      const fromDateTime = now - 30 * 24 * 60 * 60;
+      const fetchUrl = new URL(this.props.apiUrl, window.location.origin);
+      fetchUrl.searchParams.set('from_datetime', String(fromDateTime));
+      fetchUrl.searchParams.set('to_datetime', String(now));
+
+      fetch(fetchUrl.toString())
         .then(async (response) => {
           const data = await response.json();
           if (!response.ok) {
