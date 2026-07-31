@@ -50,7 +50,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
     if (!searchValue.trim()) return true;
-    const lowerSearchValue = searchValue.toLowerCase();
+    const lowerSearchValue = searchValue.trim().toLowerCase();
     return alert.affected_services?.services.some(
       (service) =>
         service.route_id.toLowerCase().includes(lowerSearchValue) ||
