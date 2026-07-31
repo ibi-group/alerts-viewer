@@ -78,9 +78,6 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       <div className="alerts-viewer">
         <div className="alerts-viewer__title">
           <h1>Alerts</h1>
-          {this.state.error && (
-            <div className="alerts-viewer__error">{this.state.error}</div>
-          )}
         </div>
         <div className="alerts-viewer__content">
           <FilterOptions
@@ -92,6 +89,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
               alerts={filteredAlerts}
               // TODO: prop drilling?
               EffectIcon={this.props.EffectIcon}
+              error={this.state.error}
               onAlertClick={this.handleAlertClick} 
             />
             <AlertBody alert={selectedAlert} />

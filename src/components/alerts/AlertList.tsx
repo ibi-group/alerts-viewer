@@ -5,12 +5,17 @@ import AlertListItem from './AlertListItem';
 export interface AlertListProps {
   alerts: AlertType[];
   EffectIcon?: React.ComponentType<{ effect: string }>;
+  error?: string | null;
   onAlertClick?: (alert: AlertType) => void;
 }
 
 export default class AlertList extends React.Component<AlertListProps> {
   render() {
     const { alerts, onAlertClick } = this.props;
+
+    if (this.props.error) {
+      return <div className="alerts-viewer__error">{this.props.error}</div>
+    }
 
     if (alerts.length === 0) {
       return <div className="alert-list">No alerts found</div>;
