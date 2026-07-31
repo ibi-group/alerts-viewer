@@ -1,12 +1,13 @@
 import React from 'react';
 import './AlertsViewer.css';
 import type { Alert, AlertsViewerProps } from './types';
-import FilterOptions from './FilterOptions';
+import FilterOptions, { type PeriodEffectFilter } from './FilterOptions';
 import AlertList from './AlertList';
 import AlertBody from './AlertBody';
 
 interface AlertsViewerState {
   searchValue: string;
+  periodEffectFilter: PeriodEffectFilter;
   selectedAlert: Alert | null;
   alerts: Alert[];
   error: string | null;
@@ -17,6 +18,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     super(props);
     this.state = {
       searchValue: '',
+      periodEffectFilter: null,
       selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
@@ -58,12 +60,50 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     ) ?? false;
   };
 
+  private matchesPeriodEffectFilter = (alert: Alert, periodEffectFilter: PeriodEffectFilter): boolean => {
+    if (!periodEffectFilter) {
+      return true;
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const effectPeriods = alert.effect_periods ?? [];
+
+    if (periodEffectFilter === 'non-expired') {
+      return effectPeriods.some((period) => {
+        const start = Number(period.effect_start);
+        const end = Number(period.effect_end);
+
+        if (Number.isNaN(start)) {
+          return false;
+        }
+
+        if (period.effect_end) {
+          return !Number.isNaN(end) && start <= now && now <= end;
+        }
+
+        return start <= now;
+      });
+    }
+
+    return effectPeriods.length > 0 && effectPeriods.every((period) => {
+      const start = Number(period.effect_start);
+      const end = Number(period.effect_end);
+
+      if (!period.effect_end || Number.isNaN(start) || Number.isNaN(end)) {
+        return false;
+      }
+
+      return end < now && start < now;
+    });
+  };
+
   private getFilteredAlerts = (): Alert[] => {
-    const { alerts, searchValue } = this.state;
+    const { alerts, searchValue, periodEffectFilter } = this.state;
 
     return alerts.filter((alert) => {
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
-      return matchesSearch;
+      const matchesPeriodEffect = this.matchesPeriodEffectFilter(alert, periodEffectFilter);
+      return matchesSearch && matchesPeriodEffect;
     });
   };
 
@@ -72,7 +112,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, selectedAlert } = this.state;
+    const { searchValue, periodEffectFilter, selectedAlert } = this.state;
     const filteredAlerts = this.getFilteredAlerts();
     return (
       <div className="alerts-viewer">
@@ -82,7 +122,9 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         <div className="alerts-viewer__content">
           <FilterOptions
             searchValue={searchValue}
+            periodEffectFilter={periodEffectFilter}
             onSearchChange={(value) => this.setState({ searchValue: value })}
+            onPeriodEffectFilterChange={(value) => this.setState({ periodEffectFilter: value })}
           />
           <div className="alerts-viewer__container">
             <AlertList
