@@ -30,13 +30,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-      const now = Math.floor(Date.now() / 1000);
-      const fromDateTime = now - 30 * 24 * 60 * 60;
-      const fetchUrl = new URL(this.props.apiUrl, window.location.origin);
-      fetchUrl.searchParams.set('from_datetime', String(fromDateTime));
-      fetchUrl.searchParams.set('to_datetime', String(now));
-
-      fetch(fetchUrl.toString())
+      fetch(this.props.apiUrl)
         .then(async (response) => {
           const data = await response.json();
           if (!response.ok) {
