@@ -377,3 +377,11 @@
   font-size: 0.8rem;
   opacity: 0.7;
 }
+
+
+.invisible-ally-container {
+  clip: rect(0, 0, 0, 0);
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}

@@ -17,6 +17,13 @@ export default class AlertList extends React.Component<AlertListProps> {
     if (loading) {
       return (
         <div className="alert-list">
+          <div
+            aria-live="assertive"
+            // className='invisible-ally-container'
+            role="alert"
+          >
+              Loading alerts
+          </div>
           <div className="loading">
             <Redo className="spinner" />
           </div>
