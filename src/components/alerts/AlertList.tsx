@@ -19,7 +19,7 @@ export default class AlertList extends React.Component<AlertListProps> {
         <div className="alert-list">
           <div
             aria-live="assertive"
-            // className='invisible-ally-container'
+            className='invisible-ally-container'
             role="alert"
           >
               Loading alerts
