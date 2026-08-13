@@ -6,43 +6,49 @@ import AlertList from './AlertList';
 import AlertBody from './AlertBody';
 
 interface AlertsViewerState {
-  searchValue: string;
-  selectedAlert: Alert | null;
   alerts: Alert[];
   error: string | null;
+  loading: boolean;
+  searchValue: string;
+  selectedAlert: Alert | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
   constructor(props: AlertsViewerProps) {
     super(props);
     this.state = {
-      searchValue: '',
-      selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
+      loading: true,
+      searchValue: '',
+      selectedAlert: null
     };
   }
 
   componentDidMount() {
-    if (!this.props.alerts || this.props.alerts.length === 0) {
-      if (!this.props.apiUrl) {
-        this.setState({ error: 'No API URL provided' });
-        return;
-      }
-      fetch(this.props.apiUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`API error: ${response.status} ${response.statusText}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          this.setState({ alerts: data.alerts, error: null });
-        })
-        .catch((err: Error) => {
-          this.setState({ error: err.message });
-        });
+    if (this.props.alerts && this.props.alerts.length > 0) {
+      this.setState({ loading: false });
+      return;
     }
+
+    if (!this.props.apiUrl) {
+      this.setState({ error: 'No API URL provided', loading: false });
+      return;
+    }
+
+    fetch(this.props.apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({ alerts: data.alerts, error: null, loading: false });
+      })
+      .catch((err: Error) => {
+        this.setState({ error: err.message, loading: false });
+      });
   }
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
@@ -69,7 +75,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, selectedAlert } = this.state;
+    const { loading, searchValue, selectedAlert } = this.state;
     const filteredAlerts = this.getFilteredAlerts();
     return (
       <div className="alerts-viewer">
@@ -89,6 +95,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
               alerts={filteredAlerts}
               // TODO: prop drilling?
               EffectIcon={this.props.EffectIcon}
+              loading={loading} 
               onAlertClick={this.handleAlertClick} 
             />
             <AlertBody alert={selectedAlert} />

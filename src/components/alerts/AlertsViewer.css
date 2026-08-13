@@ -8,6 +8,7 @@
   display: flex;
   gap: 1rem;
   flex: 1;
+  min-height: 550px;
 }
 
 .alerts-viewer__title {
@@ -22,6 +23,26 @@
 
 .alerts-viewer__content {
   padding: 0 14rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 220px;
+}
+
+.spinner {
+  width: 4rem;
+  height: 4rem;
+  animation: alerts-viewer-spin 0.8s linear infinite;
+}
+
+@keyframes alerts-viewer-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .filter-options {
@@ -355,4 +376,12 @@
 .alert__timestamp {
   font-size: 0.8rem;
   opacity: 0.7;
+}
+
+
+.invisible-ally-container {
+  clip: rect(0, 0, 0, 0);
+  height: 0;
+  overflow: hidden;
+  width: 0;
 }
