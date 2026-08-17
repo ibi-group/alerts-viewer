@@ -1,14 +1,13 @@
 import React from 'react';
 import './AlertsViewer.css';
 import type { Alert, AlertsViewerProps } from './types';
-import FilterOptions, { type PeriodEffectFilter } from './FilterOptions';
+import FilterOptions from './FilterOptions';
 import AlertList from './AlertList';
 import AlertBody from './AlertBody';
 
 interface AlertsViewerState {
-  searchValue: string;
-  periodEffectFilter: PeriodEffectFilter;
-  selectedAlert: Alert | null;
+  showExpiredAlerts: boolean,
+  showNonExpiredAlerts: boolean,
   alerts: Alert[];
   error: string | null;
   loading: boolean;
@@ -21,13 +20,12 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     super(props);
     this.state = {
       searchValue: '',
-      periodEffectFilter: null,
+      showExpiredAlerts: false,
+      showNonExpiredAlerts: true,
       selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
       loading: true,
-      searchValue: '',
-      selectedAlert: null
     };
   }
 
@@ -85,15 +83,15 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     ) ?? false;
   };
 
-  private matchesPeriodEffectFilter = (alert: Alert, periodEffectFilter: PeriodEffectFilter): boolean => {
-    if (!periodEffectFilter) {
-      return true;
+  private matchesPeriodEffectFilter = (alert: Alert, showExpiredAlerts: boolean, showNonExpiredAlerts: boolean): boolean => {
+    if (!showExpiredAlerts && !showNonExpiredAlerts) {
+      return false;
     }
 
     const now = Math.floor(Date.now() / 1000);
     const effectPeriods = alert.effect_periods ?? [];
 
-    if (periodEffectFilter === 'non-expired') {
+    if (showNonExpiredAlerts) {
       return effectPeriods.some((period) => {
         const start = Number(period.effect_start);
         const end = Number(period.effect_end);
@@ -110,7 +108,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       });
     }
 
-    return effectPeriods.length > 0 && effectPeriods.every((period) => {
+    if (showExpiredAlerts) {
+      return effectPeriods.length > 0 && effectPeriods.every((period) => {
       const start = Number(period.effect_start);
       const end = Number(period.effect_end);
 
@@ -120,14 +119,16 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
       return end < now && start < now;
     });
+    }
+    return true;
   };
 
   private getFilteredAlerts = (): Alert[] => {
-    const { alerts, searchValue, periodEffectFilter } = this.state;
+    const { alerts, searchValue, showExpiredAlerts, showNonExpiredAlerts } = this.state;
 
     return alerts.filter((alert) => {
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
-      const matchesPeriodEffect = this.matchesPeriodEffectFilter(alert, periodEffectFilter);
+      const matchesPeriodEffect = this.matchesPeriodEffectFilter(alert, showExpiredAlerts, showNonExpiredAlerts);
       return matchesSearch && matchesPeriodEffect;
     });
   };
@@ -137,7 +138,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, periodEffectFilter, loading, selectedAlert } = this.state;
+    const { searchValue, showExpiredAlerts, showNonExpiredAlerts, loading, selectedAlert } = this.state;
 
     const filteredAlerts = this.getFilteredAlerts();
     return (
@@ -148,9 +149,11 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         <div className="alerts-viewer__content">
           <FilterOptions
             searchValue={searchValue}
-            periodEffectFilter={periodEffectFilter}
+            showExpiredAlerts={showExpiredAlerts}
+            showNonExpiredAlerts={showNonExpiredAlerts}
             onSearchChange={(value) => this.setState({ searchValue: value })}
-            onPeriodEffectFilterChange={(value) => this.setState({ periodEffectFilter: value })}
+            onExpiredAlertsChange={(value: any) => console.log(value)}
+            onNonExpiredAlertsChange={(value: any) => console.log(value)}
           />
           <div className="alerts-viewer__container">
             <AlertList
