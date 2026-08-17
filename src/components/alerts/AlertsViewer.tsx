@@ -11,6 +11,9 @@ interface AlertsViewerState {
   selectedAlert: Alert | null;
   alerts: Alert[];
   error: string | null;
+  loading: boolean;
+  searchValue: string;
+  selectedAlert: Alert | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -22,13 +25,21 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
+      loading: true,
+      searchValue: '',
+      selectedAlert: null
     };
   }
 
   componentDidMount() {
+    if (this.props.alerts && this.props.alerts.length > 0) {
+      this.setState({ loading: false });
+      return;
+    }    
+    
     if (!this.props.alerts || this.props.alerts.length === 0) {
       if (!this.props.apiUrl) {
-        this.setState({ error: 'No API URL provided' });
+        this.setState({ error: 'No API URL provided', loading: false });
         return;
       }
 
@@ -48,6 +59,20 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           this.setState({ error: err.message });
         });
     }
+
+    fetch(this.props.apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({ alerts: data.alerts, error: null, loading: false });
+      })
+      .catch((err: Error) => {
+        this.setState({ error: err.message, loading: false });
+      });
   }
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
@@ -112,7 +137,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, periodEffectFilter, selectedAlert } = this.state;
+    const { searchValue, periodEffectFilter, loading, selectedAlert } = this.state;
+
     const filteredAlerts = this.getFilteredAlerts();
     return (
       <div className="alerts-viewer">
@@ -132,6 +158,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
               // TODO: prop drilling?
               EffectIcon={this.props.EffectIcon}
               error={this.state.error}
+              loading={loading} 
               onAlertClick={this.handleAlertClick} 
             />
             <AlertBody alert={selectedAlert} />
