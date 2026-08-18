@@ -7,6 +7,16 @@ export interface AlertBodyProps {
   alert: Alert | null;
 }
 
+const newWindowString = "(Opens new window)"
+
+const OpensNewWindowIcon = () => (
+  <ExternalLinkAlt 
+    height="1.2rem"
+    title={newWindowString}
+    aria-label={newWindowString}
+  />
+)
+
 export default class AlertBody extends React.Component<AlertBodyProps> {
   private renderEffectPeriods = (periods: { effect_start: string; effect_end?: string }[]) => {
     if (!periods || periods.length === 0) {
@@ -82,28 +92,13 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
                   // TODO: find a way to use externalLink.tsx from otp-rr. move to otp-ui?
                   <a key={idx} href={image.url} target="_blank" rel="noopener noreferrer" className="alert-body__image-link">  
                     View image
-                    <ExternalLinkAlt 
-                      height="1.2rem"
-                      title="(Opens new window)"
-                    />
+                    <OpensNewWindowIcon />
                   </a>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="alert-body__section">
-            <h3 className="alert-body__section-title">Alert ID</h3>
-            <p className="alert-body__text">{alert.alert_id}</p>
-          </div>
-
-          {alert.url && (
-            <div className="alert-body__section">
-              <a href={alert.url} target="_blank" rel="noopener noreferrer" className="alert-body__link">
-                View More Details
-              </a>
-            </div>
-          )}
 
           {alert.tags && alert.tags.length > 0 && (
             <div className="alert-body__section alert-body__tags">
@@ -112,6 +107,18 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
             </div>
           )}
         </div>
+         <div className="alert-body__section">
+            <h3 className="alert-body__section-title">Alert ID</h3>
+            <p className="alert-body__text">{alert.alert_id}</p>
+          </div>
+          {alert.url && (
+            <div className="alert-body__section">
+              <a href={alert.url} target="_blank" rel="noopener noreferrer" className="alert-body__link">
+                View More Details
+                <OpensNewWindowIcon />
+              </a>
+            </div>
+          )}
       </div>
     );
   }
