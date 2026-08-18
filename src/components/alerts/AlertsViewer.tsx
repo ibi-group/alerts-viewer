@@ -138,7 +138,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
             showExpiredAlerts={showExpiredAlerts}
             showNonExpiredAlerts={showNonExpiredAlerts}
             onSearchChange={(value) => this.setState({ searchValue: value })}
-            onExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
+            onExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showExpiredAlerts: e.target.checked})}
             onNonExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
           />
           <div className="alerts-viewer__container">
