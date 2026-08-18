@@ -12,8 +12,6 @@ interface AlertsViewerState {
   alerts: Alert[];
   error: string | null;
   loading: boolean;
-  searchValue: string;
-  selectedAlert: Alert | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -25,9 +23,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
-      loading: true,
-      searchValue: '',
-      selectedAlert: null
+      loading: true
     };
   }
 
@@ -44,35 +40,19 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       }
 
       fetch(this.props.apiUrl)
-        .then(async (response) => {
-          const data = await response.json();
+        .then((response) => {
           if (!response.ok) {
-            const message = data?.error?.message ? `Error: ${data.error.message}` : `Error: ${response.status} ${response.statusText}`;
-            throw new Error(message);
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
           }
-          return data;
+          return response.json();
         })
         .then((data) => {
-          this.setState({ alerts: data.alerts, error: null });
+          this.setState({ alerts: data.alerts, error: null, loading: false });
         })
         .catch((err: Error) => {
-          this.setState({ error: err.message });
+          this.setState({ error: err.message, loading: false });
         });
     }
-
-    fetch(this.props.apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ alerts: data.alerts, error: null, loading: false });
-      })
-      .catch((err: Error) => {
-        this.setState({ error: err.message, loading: false });
-      });
   }
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
