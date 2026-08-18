@@ -11,8 +11,6 @@ interface AlertsViewerState {
   alerts: Alert[];
   error: string | null;
   loading: boolean;
-  searchValue: string;
-  selectedAlert: Alert | null;
 }
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -25,7 +23,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       selectedAlert: null,
       alerts: this.props.alerts ?? [],
       error: null,
-      loading: true,
+      loading: true
     };
   }
 
@@ -41,19 +39,19 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-    fetch(this.props.apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ alerts: data.alerts, error: null, loading: false });
-      })
-      .catch((err: Error) => {
-        this.setState({ error: err.message, loading: false });
-      });
+      fetch(this.props.apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({ alerts: data.alerts, error: null, loading: false });
+        })
+        .catch((err: Error) => {
+          this.setState({ error: err.message, loading: false });
+        });
     }
   }
 
