@@ -68,6 +68,10 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   private matchesPeriodEffectFilter = (alert: Alert, showExpiredAlerts: boolean, showNonExpiredAlerts: boolean): boolean => {
+    if (showExpiredAlerts && showNonExpiredAlerts) {
+      return true;
+    }
+
     if (!showExpiredAlerts && !showNonExpiredAlerts) {
       return false;
     }
@@ -123,8 +127,6 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
   render() {
     const { searchValue, showExpiredAlerts, showNonExpiredAlerts, loading, selectedAlert } = this.state;
-
-    console.log("expiredAlerts", showExpiredAlerts, "nonExpired", showNonExpiredAlerts)
 
     const filteredAlerts = this.getFilteredAlerts();
     return (
