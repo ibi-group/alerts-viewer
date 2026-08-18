@@ -2,18 +2,18 @@ import React from 'react';
 
 import { Search } from '@styled-icons/fa-solid/Search'
 
-export type PeriodEffectFilter = 'non-expired' | 'expired' | null;
-
 export interface FilterOptionsProps {
   searchValue: string;
-  periodEffectFilter: PeriodEffectFilter;
+  showExpiredAlerts: boolean,
+  showNonExpiredAlerts: boolean,
   onSearchChange: (value: string) => void;
-  onPeriodEffectFilterChange: (value: PeriodEffectFilter) => void;
+  onExpiredAlertsChange: any;
+  onNonExpiredAlertsChange: any;
 }
 
 export default class FilterOptions extends React.Component<FilterOptionsProps> {
   render() {
-    const { searchValue, periodEffectFilter, onSearchChange, onPeriodEffectFilterChange } = this.props;
+    const { searchValue, showExpiredAlerts, showNonExpiredAlerts, onSearchChange, onExpiredAlertsChange, onNonExpiredAlertsChange } = this.props;
 
     return (
       <div className="filter-options">
@@ -31,16 +31,16 @@ export default class FilterOptions extends React.Component<FilterOptionsProps> {
         <div className="filter-options__period-effect-group">
           <label className="filter-options__period-effect-option">
             <input
-              checked={periodEffectFilter === 'non-expired'}
-              onChange={(e) => onPeriodEffectFilterChange(e.target.checked ? 'non-expired' : null)}
+              checked={showNonExpiredAlerts}
+              onChange={(e) => onNonExpiredAlertsChange(e) }
               type="checkbox"
             />
             <span>Non-expired alerts</span>
           </label>
           <label className="filter-options__period-effect-option">
             <input
-              checked={periodEffectFilter === 'expired'}
-              onChange={(e) => onPeriodEffectFilterChange(e.target.checked ? 'expired' : null)}
+              checked={showExpiredAlerts}
+              onChange={(e) => onExpiredAlertsChange(e) }
               type="checkbox"
             />
             <span>Expired alerts</span>
