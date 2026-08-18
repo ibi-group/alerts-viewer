@@ -17,6 +17,13 @@ const OpensNewWindowIcon = () => (
   />
 )
 
+const AlertSection = ({title, text}: {title: string, text: string}) => (
+  <div className="alert-body__section">
+    <h3 className="alert-body__section-title">{title}</h3>
+    <p className="alert-body__text">{text}</p>
+  </div>
+)
+
 export default class AlertBody extends React.Component<AlertBodyProps> {
   private renderEffectPeriods = (periods: { effect_start: string; effect_end?: string }[]) => {
     if (!periods || periods.length === 0) {
@@ -52,22 +59,13 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
         </div>
 
         <div className="alert-body__content">
-          <div className="alert-body__section">
-            <h3 className="alert-body__section-title">Effect</h3>
-            <p className="alert-body__text">{alert.effect_name}</p>
-          </div>
+          <AlertSection title="Effect" text={alert.effect_name}/>
 
           {alert.cause_name && (
-            <div className="alert-body__section">
-              <h3 className="alert-body__section-title">Cause</h3>
-              <p className="alert-body__text">{alert.cause_name}</p>
-            </div>
+            <AlertSection title="Cause" text={alert.cause_name}/>
           )}
 
-          <div className="alert-body__section">
-            <h3 className="alert-body__section-title">Description</h3>
-            <p className="alert-body__text">{alert.description_text}</p>
-          </div>
+          <AlertSection title="Description" text={alert.description_text}/>
 
           {alert.affected_services && alert.affected_services.services.length > 0 && (
             <div className="alert-body__section">
@@ -101,16 +99,10 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
 
 
           {alert.tags && alert.tags.length > 0 && (
-            <div className="alert-body__section alert-body__tags">
-              <h4 className="alert-body__section-title">Tags</h4>
-              <p className="alert-body__text">{alert.tags.join(', ')}</p>
-            </div>
+            <AlertSection title="Tags" text={alert.tags.join(', ')}/>
           )}
         </div>
-         <div className="alert-body__section">
-            <h3 className="alert-body__section-title">Alert ID</h3>
-            <p className="alert-body__text">{alert.alert_id}</p>
-          </div>
+          <AlertSection title="Alert ID" text={`${alert.alert_id}`}/>
           {alert.url && (
             <div className="alert-body__section">
               <a href={alert.url} target="_blank" rel="noopener noreferrer" className="alert-body__link">

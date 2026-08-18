@@ -6,12 +6,16 @@ import AlertList from './AlertList';
 import AlertBody from './AlertBody';
 
 interface AlertsViewerState {
+  searchValue: string;
+  selectedAlert: Alert | null;
   showExpiredAlerts: boolean,
   showNonExpiredAlerts: boolean,
   alerts: Alert[];
   error: string | null;
   loading: boolean;
 }
+
+const today = () =>  Math.floor(Date.now() / 1000);
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
   constructor(props: AlertsViewerProps) {
@@ -39,7 +43,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-      const now = Math.floor(Date.now() / 1000);
+      const now = today()
       // Alerts API only supports pastalerts from the past 31 days. If an alert was visible to the public in this window, it will be returned.
       const THIRTY_ONE_DAYS = 2678400
       const pastAlertsStartWindow = (now - THIRTY_ONE_DAYS)
@@ -73,15 +77,12 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   private matchesPeriodEffectFilter = (alert: Alert, showExpiredAlerts: boolean, showNonExpiredAlerts: boolean): boolean => {
-    if (showExpiredAlerts && showNonExpiredAlerts) {
-      return true;
+    // If both filters are true, return true. If both filters are false, return false.
+    if (showExpiredAlerts === showNonExpiredAlerts) {
+      return showExpiredAlerts;
     }
 
-    if (!showExpiredAlerts && !showNonExpiredAlerts) {
-      return false;
-    }
-
-    const now = Math.floor(Date.now() / 1000);
+    const now = today()
     const effectPeriods = alert.effect_periods ?? [];
 
     if (showNonExpiredAlerts) {

@@ -7,8 +7,8 @@ export interface FilterOptionsProps {
   showExpiredAlerts: boolean,
   showNonExpiredAlerts: boolean,
   onSearchChange: (value: string) => void;
-  onExpiredAlertsChange: any;
-  onNonExpiredAlertsChange: any;
+  onExpiredAlertsChange: (arg: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
+  onNonExpiredAlertsChange: (arg: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
 }
 
 export default class FilterOptions extends React.Component<FilterOptionsProps> {
