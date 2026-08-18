@@ -13,6 +13,7 @@
 }
 
 .alerts-viewer__error {
+  width: 100%;
   color: red;
   text-align: center;
   padding: 1rem;
