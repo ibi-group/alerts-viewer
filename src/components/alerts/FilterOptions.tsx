@@ -32,7 +32,10 @@ export default class FilterOptions extends React.Component<FilterOptionsProps> {
           <label className="filter-options__period-effect-option">
             <input
               checked={showNonExpiredAlerts}
-              onChange={(e) => onNonExpiredAlertsChange(e.target.checked)}
+              onChange={(e) => {
+                console.log(e.target.checked)
+                onNonExpiredAlertsChange(e)
+              }}
               type="checkbox"
             />
             <span>Non-expired alerts</span>
@@ -40,7 +43,10 @@ export default class FilterOptions extends React.Component<FilterOptionsProps> {
           <label className="filter-options__period-effect-option">
             <input
               checked={showExpiredAlerts}
-              onChange={(e) => onExpiredAlertsChange(e.target.checked)}
+              onChange={(e) => {
+                console.log(e.target.checked)
+                onExpiredAlertsChange(e)
+              }}
               type="checkbox"
             />
             <span>Expired alerts</span>

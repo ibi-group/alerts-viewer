@@ -41,23 +41,6 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-      fetch(this.props.apiUrl)
-        .then(async (response) => {
-          const data = await response.json();
-          if (!response.ok) {
-            const message = data?.error?.message ? `Error: ${data.error.message}` : `Error: ${response.status} ${response.statusText}`;
-            throw new Error(message);
-          }
-          return data;
-        })
-        .then((data) => {
-          this.setState({ alerts: data.alerts, error: null });
-        })
-        .catch((err: Error) => {
-          this.setState({ error: err.message });
-        });
-    }
-
     fetch(this.props.apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -71,6 +54,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       .catch((err: Error) => {
         this.setState({ error: err.message, loading: false });
       });
+    }
   }
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
@@ -154,8 +138,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
             showExpiredAlerts={showExpiredAlerts}
             showNonExpiredAlerts={showNonExpiredAlerts}
             onSearchChange={(value) => this.setState({ searchValue: value })}
-            onExpiredAlertsChange={(value: any) => this.setState({ showNonExpiredAlerts: value})}
-            onNonExpiredAlertsChange={(value: any) => this.setState({ showNonExpiredAlerts: value})}
+            onExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
+            onNonExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
           />
           <div className="alerts-viewer__container">
             <AlertList
