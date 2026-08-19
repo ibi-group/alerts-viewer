@@ -12,6 +12,14 @@
   min-height: 550px;
 }
 
+.alerts-viewer__error {
+  width: 100%;
+  color: red;
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+}
+
 .alerts-viewer__title {
   margin-top: 0;
   border-bottom: solid 1px #adadad;
@@ -48,7 +56,14 @@
 
 .filter-options {
   padding-bottom: 2rem;
-  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-options__search {
+  display: flex;
+  align-items: center;
 }
 
 .filter-options__search-icon {
@@ -59,6 +74,23 @@
 .filter-options__input {
   margin-left: 10px;
   width: 60%;
+}
+
+.filter-options__period-effect-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1.8rem;
+}
+
+.filter-options__period-effect-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-options__period-effect-option input[type=checkbox] {
+  margin: 0;
 }
 
 .alert-list {
@@ -224,7 +256,7 @@
   gap: 0.5rem;
 }
 
-.alert-body__image-link {
+.alert-body__link, .alert-body__image-link {
   align-items: center;
   display: flex;
   flex-direction: row;

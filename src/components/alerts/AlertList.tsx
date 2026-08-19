@@ -7,6 +7,7 @@ export interface AlertListProps {
   alerts: AlertType[];
   loading: boolean;
   EffectIcon?: React.ComponentType<{ effect: string }>;
+  error?: string | null;
   onAlertClick?: (alert: AlertType) => void;
 }
 
@@ -29,6 +30,10 @@ export default class AlertList extends React.Component<AlertListProps> {
           </div>
         </div>
       );
+    }
+
+    if (this.props.error) {
+      return <div className="alerts-viewer__error">{this.props.error}</div>
     }
 
     if (alerts.length === 0) {

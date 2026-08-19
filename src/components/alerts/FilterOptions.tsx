@@ -4,12 +4,16 @@ import { Search } from '@styled-icons/fa-solid/Search'
 
 export interface FilterOptionsProps {
   searchValue: string;
+  showExpiredAlerts: boolean,
+  showNonExpiredAlerts: boolean,
   onSearchChange: (value: string) => void;
+  onExpiredAlertsChange: (arg: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
+  onNonExpiredAlertsChange: (arg: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
 }
 
 export default class FilterOptions extends React.Component<FilterOptionsProps> {
   render() {
-    const { searchValue, onSearchChange } = this.props;
+    const { searchValue, showExpiredAlerts, showNonExpiredAlerts, onSearchChange, onExpiredAlertsChange, onNonExpiredAlertsChange } = this.props;
 
     return (
       <div className="filter-options">
@@ -19,10 +23,28 @@ export default class FilterOptions extends React.Component<FilterOptionsProps> {
             className="filter-options__input"
             name='search'
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search by route ID or name..."
+            placeholder="Search by route ID or name"
             type="text"
             value={searchValue}
           />
+        </div>
+        <div className="filter-options__period-effect-group">
+          <label className="filter-options__period-effect-option">
+            <input
+              checked={showNonExpiredAlerts}
+              onChange={(e) => onNonExpiredAlertsChange(e) }
+              type="checkbox"
+            />
+            <span>Non-expired alerts</span>
+          </label>
+          <label className="filter-options__period-effect-option">
+            <input
+              checked={showExpiredAlerts}
+              onChange={(e) => onExpiredAlertsChange(e) }
+              type="checkbox"
+            />
+            <span>Expired alerts</span>
+          </label>
         </div>
       </div>
     );
