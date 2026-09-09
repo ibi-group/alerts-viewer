@@ -71,8 +71,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     const lowerSearchValue = searchValue.trim().toLowerCase();
     return alert.affected_services?.services.some(
       (service) =>
-        service.route_id.toLowerCase().includes(lowerSearchValue) ||
-        service.route_name.toLowerCase().includes(lowerSearchValue)
+        service?.route_id?.toString().toLowerCase().includes(lowerSearchValue) ||
+        service?.route_name?.toString().toLowerCase().includes(lowerSearchValue)
     ) ?? false;
   };
 
