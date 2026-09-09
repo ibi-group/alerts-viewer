@@ -14,7 +14,7 @@ export default class AlertListItem extends React.Component<AlertListItemProps> {
 
     return (
       <div 
-        className={`alert-list-item alert-list-item--${alert.severity.toLowerCase()}`}
+        className="alert-list-item"
         onClick={() => onClick?.(alert)}
         role="button"
         tabIndex={0}
