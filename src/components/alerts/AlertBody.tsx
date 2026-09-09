@@ -84,12 +84,12 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
 
           {alert.images && alert.images.length > 0 && (
             <div className="alert-body__section">
-              <h3 className="alert-body__section-title">Images</h3>
+              <h3 className="alert-body__section-title">Detour Map</h3>
               <div className="alert-body__images">
                 {alert.images.map((image, idx) => (
                   // TODO: find a way to use externalLink.tsx from otp-rr. move to otp-ui?
                   <a key={idx} href={image.url} target="_blank" rel="noopener noreferrer" className="alert-body__image-link">  
-                    View image
+                    View Map
                     <OpensNewWindowIcon />
                   </a>
                 ))}
