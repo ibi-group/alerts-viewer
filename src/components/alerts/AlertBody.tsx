@@ -97,12 +97,16 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
             </div>
           )}
 
+          {alert.last_modified_dt && (
+            <AlertSection title="Last Modified" text={format(new Date(Number(alert.last_modified_dt)), 'MM/dd/yyyy h:mm a')}/>
+          )}
 
           {alert.tags && alert.tags.length > 0 && (
             <AlertSection title="Tags" text={alert.tags.join(', ')}/>
           )}
-        </div>
+
           <AlertSection title="Alert ID" text={`${alert.alert_id}`}/>
+
           {alert.url && (
             <div className="alert-body__section">
               <a href={alert.url} target="_blank" rel="noopener noreferrer" className="alert-body__link">
@@ -111,6 +115,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
               </a>
             </div>
           )}
+        </div>
       </div>
     );
   }
