@@ -45,8 +45,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
       const now = today()
       // Alerts API only supports pastalerts from the past 31 days. If an alert was visible to the public in this window, it will be returned.
-      const THIRTY_ONE_DAYS = 2678400
-      const pastAlertsStartWindow = (now - THIRTY_ONE_DAYS)
+      const TWO_WEEKS = 1209600 // 2 weeks in seconds
+      const pastAlertsStartWindow = (now - TWO_WEEKS)
 
       const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${now}`
 
