@@ -8,6 +8,7 @@ import AlertBody from './AlertBody';
 interface AlertsViewerState {
   searchValue: string;
   selectedAlert: Alert | null;
+  selectedEffect: string;
   showExpiredAlerts: boolean,
   showNonExpiredAlerts: boolean,
   alerts: Alert[];
@@ -22,6 +23,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     super(props);
     this.state = {
       searchValue: '',
+      selectedEffect: '',
       showExpiredAlerts: false,
       showNonExpiredAlerts: true,
       selectedAlert: null,
@@ -118,12 +120,13 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   private getFilteredAlerts = (): Alert[] => {
-    const { alerts, searchValue, showExpiredAlerts, showNonExpiredAlerts } = this.state;
+    const { alerts, searchValue, selectedEffect, showExpiredAlerts, showNonExpiredAlerts } = this.state;
 
     return alerts.filter((alert) => {
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
       const matchesPeriodEffect = this.matchesPeriodEffectFilter(alert, showExpiredAlerts, showNonExpiredAlerts);
-      return matchesSearch && matchesPeriodEffect;
+      const matchesSelectedEffect = !selectedEffect || alert.effect_name?.toLowerCase() === selectedEffect.toLowerCase() || alert.effect?.toLowerCase() === selectedEffect.toLowerCase();
+      return matchesSearch && matchesPeriodEffect && matchesSelectedEffect;
     });
   };
 
@@ -132,7 +135,9 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, showExpiredAlerts, showNonExpiredAlerts, loading, selectedAlert } = this.state;
+    const { searchValue, selectedEffect, showExpiredAlerts, showNonExpiredAlerts, loading, selectedAlert } = this.state;
+    // use effects from props else dynamically generate effects from alerts in state
+    const effects = this.props.effects ?? Array.from(new Set((this.state.alerts ?? []).map((alert) => alert.effect_name || alert.effect).filter(Boolean))).map((name) => ({ name }));
 
     const filteredAlerts = this.getFilteredAlerts();
     return (
@@ -142,10 +147,14 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         </div>
         <div className="alerts-viewer__content">
           <FilterOptions
+            effects={effects}
             searchValue={searchValue}
+            selectedEffect={selectedEffect}
             showExpiredAlerts={showExpiredAlerts}
             showNonExpiredAlerts={showNonExpiredAlerts}
+            EffectIcon={this.props.EffectIcon}
             onSearchChange={(value) => this.setState({ searchValue: value })}
+            onEffectChange={(value) => this.setState({ selectedEffect: value })}
             onExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showExpiredAlerts: e.target.checked})}
             onNonExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
           />

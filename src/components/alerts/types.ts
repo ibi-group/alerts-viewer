@@ -49,8 +49,14 @@ export type Alert = {
   alternate_stops?: unknown[];
 }
 
+export type Effect = {
+  name: string;
+  timeframe?: number;
+}
+
 export interface AlertsViewerProps {
   alerts?: Alert[];
   apiUrl?: string;
+  effects?: Effect[];
   EffectIcon?: React.ComponentType<{ effect: string }>;
 }
