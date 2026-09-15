@@ -47,8 +47,9 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
 
       const now = today()
       // Alerts API only supports pastalerts from the past 31 days. If an alert was visible to the public in this window, it will be returned.
-      const THIRTY_ONE_DAYS = 2678400
-      const pastAlertsStartWindow = (now - THIRTY_ONE_DAYS)
+      const DEFAULT_PAST_ALERTS_TIMEFRAME = 2678400
+      const pastAlertsTimeframe = this.props.config?.pastAlertsTimeframe ?? DEFAULT_PAST_ALERTS_TIMEFRAME
+      const pastAlertsStartWindow = (now - pastAlertsTimeframe)
 
       const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${now}`
 
@@ -60,13 +61,43 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           return response.json();
         })
         .then((data) => {
-          this.setState({ alerts: data.alerts, error: null, loading: false });
+          const alerts = this.filterAlertsByEffectTimeframe(data.alerts, now);
+          this.setState({ alerts, error: null, loading: false });
         })
         .catch((err: Error) => {
           this.setState({ error: err.message, loading: false });
         });
     }
   }
+
+  private filterAlertsByEffectTimeframe = (alerts: Alert[], now: number): Alert[] => {
+    if (!this.props.config?.customEffectTimeframeFilter) {
+      return alerts;
+    }
+
+    const configuredEffects = this.props.config.effects ?? [];
+
+    return alerts.filter((alert) => {
+      const alertEffect = (alert.effect_name || alert.effect).toLowerCase();
+      const configuredEffect = configuredEffects.find((effect) => effect.name.toLowerCase() === alertEffect);
+
+      if (configuredEffect?.timeframe === undefined) {
+        return true;
+      }
+
+      const timeframeStart = now - configuredEffect.timeframe;
+      return (alert.effect_periods ?? []).some((period) => {
+        const effectStart = Number(period.effect_start);
+        const effectEnd = period.effect_end ? Number(period.effect_end) : now;
+
+        if (Number.isNaN(effectStart) || Number.isNaN(effectEnd)) {
+          return false;
+        }
+
+        return effectEnd >= timeframeStart && effectStart <= now;
+      });
+    });
+  };
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
     if (!searchValue.trim()) return true;

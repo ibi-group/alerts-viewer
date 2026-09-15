@@ -55,8 +55,8 @@ export type Effect = {
 }
 
 export type AlertsViewerConfig = {
-  customEffectTimeframeFilter: boolean;
-  pastAlertsTimeframe: number;
+  customEffectTimeframeFilter?: boolean;
+  pastAlertsTimeframe?: number;
   effects: Effect[];
 }
 
