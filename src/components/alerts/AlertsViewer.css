@@ -61,19 +61,60 @@
   gap: 0.75rem;
 }
 
+.filter-options__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .filter-options__search {
   display: flex;
   align-items: center;
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  height: 2.5rem;
+  width: 25rem;
+  box-sizing: border-box;
 }
 
 .filter-options__search-icon {
-  width: 1em;
-  height: 1em;
+  width: 1rem;
+  height: 1rem;
+  color: #666;
+  flex-shrink: 0;
 }
 
 .filter-options__input {
   margin-left: 10px;
-  width: 60%;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+}
+
+.filter-options__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  height: 2.5rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.filter-options__sort-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #666;
+  flex-shrink: 0;
 }
 
 .filter-options__period-effect-group {
