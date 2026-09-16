@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@opentripplanner/building-blocks':
+        specifier: '>=3.2.0'
+        version: 3.2.0(react-animate-height@3.2.4(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))
       '@styled-icons/fa-solid':
         specifier: ^10.34.0
         version: 10.47.0(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))
@@ -459,6 +462,13 @@ packages:
   '@neoconfetti/react@1.0.0':
     resolution: {integrity: sha512-klcSooChXXOzIm+SE5IISIAn3bYzYfPjbX7D7HoqZL84oAfgREeSg5vSIaSFH+DaGzzvImTyWe1OyrJ67vik4A==}
 
+  '@opentripplanner/building-blocks@3.2.0':
+    resolution: {integrity: sha512-u5J+uX059wMJFI3noOoZpCuw33TXaNstnvsYNVtj9TPybJ1Feb6khyrmk5fYNggXzJ+nxn81cN/DcU+ImQhIXw==}
+    peerDependencies:
+      react: ^18.2.0
+      react-animate-height: ^3.0.4
+      styled-components: ^5.3.0
+
   '@oxc-parser/binding-android-arm-eabi@0.127.0':
     resolution: {integrity: sha512-0LC7ye4hvqbIKxAzThzvswgHLFu2AURKzYLeSVvLdu2TBOYWQDmHnTqPLeA597BcUCxiLqLsS4CJ5uoI5WYWCQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -901,6 +911,12 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  '@styled-icons/bootstrap@10.47.0':
+    resolution: {integrity: sha512-xpnPdrLhAhpTRE4iljQIEK73twVj7VPglwHSL+8nQdH7EsW5RJIOWsmlkZMyqhQHN0H7fGmT10F3/6OQhSpfGg==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
 
   '@styled-icons/fa-solid@10.47.0':
     resolution: {integrity: sha512-8AJjbOAkvPlB/ypFzWo++CZxRDlFQfvWQSjWzVU/v/4kjGRWIiVB+rJrTB7joDUd5Oas/se4cSiDkSA+XR/Fqg==}
@@ -1816,6 +1832,13 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
+  react-animate-height@3.2.4:
+    resolution: {integrity: sha512-wcT37yHsFWDx8DmNFMy0AqSrYgNPGAtU9dyEqwIq3kSUXW03DWSi5WqbhlOALvMXcowal8JWUJRXij6TexilGQ==}
+    engines: {node: '>= 20.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
   react-docgen-typescript@2.4.0:
     resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
     peerDependencies:
@@ -2531,6 +2554,13 @@ snapshots:
 
   '@neoconfetti/react@1.0.0': {}
 
+  '@opentripplanner/building-blocks@3.2.0(react-animate-height@3.2.4(react-dom@16.14.0(react@16.14.0))(react@16.14.0))(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))':
+    dependencies:
+      '@styled-icons/bootstrap': 10.47.0(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))
+      react: 16.14.0
+      react-animate-height: 3.2.4(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
+      styled-components: 6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
+
   '@oxc-parser/binding-android-arm-eabi@0.127.0':
     optional: true
 
@@ -2859,6 +2889,13 @@ snapshots:
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@styled-icons/bootstrap@10.47.0(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))':
+    dependencies:
+      '@babel/runtime': 7.29.7
+      '@styled-icons/styled-icon': 10.7.1(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))
+      react: 16.14.0
+      styled-components: 6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0)
 
   '@styled-icons/fa-solid@10.47.0(react@16.14.0)(styled-components@6.4.2(react-dom@16.14.0(react@16.14.0))(react@16.14.0))':
     dependencies:
@@ -3812,6 +3849,11 @@ snapshots:
       react-is: 16.13.1
 
   punycode@2.3.1: {}
+
+  react-animate-height@3.2.4(react-dom@16.14.0(react@16.14.0))(react@16.14.0):
+    dependencies:
+      react: 16.14.0
+      react-dom: 16.14.0(react@16.14.0)
 
   react-docgen-typescript@2.4.0(typescript@6.0.3):
     dependencies:
