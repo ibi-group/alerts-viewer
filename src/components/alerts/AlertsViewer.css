@@ -63,9 +63,16 @@
 
 .filter-options__controls {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.75rem;
+}
+
+.filter-options__secondary-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .filter-options__search {
@@ -121,7 +128,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-left: 1.8rem;
 }
 
 .filter-options__period-effect-option {

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Search } from '@styled-icons/fa-solid/Search'
-import { SortAmountDownAlt } from '@styled-icons/fa-solid/SortAmountDownAlt'
-import { SortAmountUpAlt } from '@styled-icons/fa-solid/SortAmountUpAlt'
+import { SortAmountDown } from '@styled-icons/fa-solid/SortAmountDown'
+import { SortAmountUp } from '@styled-icons/fa-solid/SortAmountUp'
 
 export interface FilterOptionsProps {
   searchValue: string;
@@ -43,38 +43,41 @@ export default class FilterOptions extends React.Component<FilterOptionsProps> {
             />
           </div>
 
-          <button
-            type="button"
-            className="filter-options__sort-button"
-            onClick={onSortToggle}
-            aria-label={`Sort alerts by start time ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
-            title={`Sort by start time: ${sortDirection === 'asc' ? 'ascending' : 'descending'}`}
-          >
-            {sortDirection === 'asc' ? (
-              <SortAmountUpAlt className="filter-options__sort-icon" />
-            ) : (
-              <SortAmountDownAlt className="filter-options__sort-icon" />
-            )}
-            <span>{sortDirection === 'asc' ? 'Oldest first' : 'Newest first'}</span>
-          </button>
-        </div>
-        <div className="filter-options__period-effect-group">
-          <label className="filter-options__period-effect-option">
-            <input
-              checked={showNonExpiredAlerts}
-              onChange={(e) => onNonExpiredAlertsChange(e) }
-              type="checkbox"
-            />
-            <span>Non-expired alerts</span>
-          </label>
-          <label className="filter-options__period-effect-option">
-            <input
-              checked={showExpiredAlerts}
-              onChange={(e) => onExpiredAlertsChange(e) }
-              type="checkbox"
-            />
-            <span>Expired alerts</span>
-          </label>
+          <div className="filter-options__secondary-controls">
+            <div className="filter-options__period-effect-group">
+              <label className="filter-options__period-effect-option">
+                <input
+                  checked={showNonExpiredAlerts}
+                  onChange={(e) => onNonExpiredAlertsChange(e) }
+                  type="checkbox"
+                />
+                <span>Non-expired alerts</span>
+              </label>
+              <label className="filter-options__period-effect-option">
+                <input
+                  checked={showExpiredAlerts}
+                  onChange={(e) => onExpiredAlertsChange(e) }
+                  type="checkbox"
+                />
+                <span>Expired alerts</span>
+              </label>
+            </div>
+
+            <button
+              type="button"
+              className="filter-options__sort-button"
+              onClick={onSortToggle}
+              aria-label={`Sort alerts by start time ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
+              title={`Sort by start time: ${sortDirection === 'asc' ? 'ascending' : 'descending'}`}
+            >
+              {sortDirection === 'asc' ? (
+                <SortAmountUp className="filter-options__sort-icon" />
+              ) : (
+                <SortAmountDown className="filter-options__sort-icon" />
+              )}
+              <span>{sortDirection === 'asc' ? 'Oldest first' : 'Newest first'}</span>
+            </button>
+          </div>
         </div>
       </div>
     );
