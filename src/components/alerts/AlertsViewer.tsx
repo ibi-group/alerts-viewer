@@ -165,10 +165,17 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     this.setState({ selectedAlert: alert });
   };
 
+  private getEffectOptions = (): { name: string }[] => {
+    const effectNames = (this.state.alerts ?? [])
+      .map((alert) => alert.effect_name || alert.effect)
+      .filter(Boolean);
+
+    return Array.from(new Set(effectNames)).map((name) => ({ name }));
+  };
+
   render() {
     const { searchValue, selectedEffect, showExpiredAlerts, showNonExpiredAlerts, loading, selectedAlert } = this.state;
-    // use effects from props else dynamically generate effects from alerts in state
-    const effects = this.props.config?.effects ?? Array.from(new Set((this.state.alerts ?? []).map((alert) => alert.effect_name || alert.effect).filter(Boolean))).map((name) => ({ name }));
+    const effects = this.props.config?.effects ?? this.getEffectOptions();
 
     const filteredAlerts = this.getFilteredAlerts();
     return (
