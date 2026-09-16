@@ -6,8 +6,8 @@ import { SortAmountUpAlt } from '@styled-icons/fa-solid/SortAmountUpAlt'
 
 export interface FilterOptionsProps {
   searchValue: string;
-  showExpiredAlerts: boolean,
-  showNonExpiredAlerts: boolean,
+  showExpiredAlerts: boolean;
+  showNonExpiredAlerts: boolean;
   sortDirection: 'asc' | 'desc';
   onSearchChange: (value: string) => void;
   onExpiredAlertsChange: (arg: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
