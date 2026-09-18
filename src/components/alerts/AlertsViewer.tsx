@@ -16,6 +16,7 @@ interface AlertsViewerState {
   loading: boolean;
 }
 
+// Returns the current time in seconds
 const today = () =>  Math.floor(Date.now() / 1000);
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -45,13 +46,13 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-      const now = today()
+      const NOW_SECONDS = today()
       // Alerts API only supports pastalerts from the past 31 days. If an alert was visible to the public in this window, it will be returned.
-      const DEFAULT_PAST_ALERTS_TIMEFRAME = 2678400
-      const pastAlertsTimeframe = this.props.config?.pastAlertsTimeframe ?? DEFAULT_PAST_ALERTS_TIMEFRAME
-      const pastAlertsStartWindow = (now - pastAlertsTimeframe)
+      const DEFAULT_PAST_ALERTS_TIMEFRAME_SECONDS = 2678400
+      const pastAlertsTimeframe = this.props.config?.pastAlertsTimeframe ?? DEFAULT_PAST_ALERTS_TIMEFRAME_SECONDS
+      const pastAlertsStartWindow = (NOW_SECONDS - pastAlertsTimeframe)
 
-      const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${now}`
+      const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${NOW_SECONDS}`;
 
       fetch(pastAlertsDateTimeURL)
         .then((response) => {
@@ -61,7 +62,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           return response.json();
         })
         .then((data) => {
-          const alerts = this.filterAlertsByEffectTimeframe(data.alerts, now);
+          const alerts = this.filterAlertsByEffectTimeframe(data.alerts, NOW_SECONDS);
           this.setState({ alerts, error: null, loading: false });
         })
         .catch((err: Error) => {
@@ -70,7 +71,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     }
   }
 
-  private filterAlertsByEffectTimeframe = (alerts: Alert[], now: number): Alert[] => {
+  private filterAlertsByEffectTimeframe = (alerts: Alert[], NOW_SECONDS: number): Alert[] => {
     if (!this.props.config?.customEffectTimeframeFilter) {
       return alerts;
     }
@@ -85,16 +86,16 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return true;
       }
 
-      const timeframeStart = now - configuredEffect.timeframe;
+      const timeframeStart = NOW_SECONDS - configuredEffect.timeframe;
       return (alert.effect_periods ?? []).some((period) => {
         const effectStart = Number(period.effect_start);
-        const effectEnd = period.effect_end ? Number(period.effect_end) : now;
+        const effectEnd = period.effect_end ? Number(period.effect_end) : NOW_SECONDS;
 
         if (Number.isNaN(effectStart) || Number.isNaN(effectEnd)) {
           return false;
         }
 
-        return effectEnd >= timeframeStart && effectStart <= now;
+        return effectEnd >= timeframeStart && effectStart <= NOW_SECONDS;
       });
     });
   };
@@ -115,7 +116,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       return showExpiredAlerts;
     }
 
-    const now = today()
+    const NOW_SECONDS = today()
     const effectPeriods = alert.effect_periods ?? [];
 
     if (showNonExpiredAlerts) {
@@ -128,10 +129,10 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         }
 
         if (period.effect_end) {
-          return !Number.isNaN(end) && start <= now && now <= end;
+          return !Number.isNaN(end) && start <= NOW_SECONDS && NOW_SECONDS <= end;
         }
 
-        return start <= now;
+        return start <= NOW_SECONDS;
       });
     }
 
@@ -144,7 +145,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return false;
       }
 
-      return end < now && start < now;
+      return end < NOW_SECONDS && start < NOW_SECONDS;
     });
     }
     return true;
