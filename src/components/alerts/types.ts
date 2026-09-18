@@ -54,9 +54,15 @@ export type Effect = {
   timeframe?: number;
 }
 
+export type AlertsViewerConfig = {
+  customEffectTimeframeFilter?: boolean;
+  pastAlertsTimeframe?: number;
+  effects: Effect[];
+}
+
 export interface AlertsViewerProps {
   alerts?: Alert[];
   apiUrl?: string;
-  effects?: Effect[];
+  config?: AlertsViewerConfig;
   EffectIcon?: React.ComponentType<{ effect: string }>;
 }
