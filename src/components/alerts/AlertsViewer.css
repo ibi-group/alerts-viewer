@@ -63,7 +63,6 @@
 
 .filter-options__controls {
   display: flex;
-  flex-direction: column;
   gap: 0.75rem;
 }
 
@@ -75,19 +74,32 @@
   width: 100%;
 }
 
-.filter-options__search {
+.filter-options__secondary-controls {
   display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.filter-options__search,
+.filter-options__effect-dropdown > button {
+  display: inline-flex;
   align-items: center;
   background: #fff;
   border: 1px solid #cfcfcf;
   border-radius: 0.4rem;
   padding: 0.35rem 0.6rem;
   height: 2.5rem;
-  width: 25rem;
   box-sizing: border-box;
 }
 
-.filter-options__search-icon {
+.filter-options__search {
+  width: 25rem;
+}
+
+.filter-options__search-icon,
+.filter-options__effect-icon {
   width: 1rem;
   height: 1rem;
   color: #666;
@@ -95,12 +107,13 @@
 }
 
 .filter-options__input {
-  margin-left: 10px;
-  width: 100%;
   border: none;
   outline: none;
   background: transparent;
   font: inherit;
+  color: inherit;
+  margin-left: 10px;
+  width: 100%;
 }
 
 .filter-options__sort-button {
@@ -122,6 +135,91 @@
   height: 1rem;
   color: #666;
   flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.filter-options__effect-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.filter-options__effect-dropdown {
+  min-width: 16rem;
+}
+
+.filter-options__effect-dropdown > button {
+  min-width: 16rem;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.filter-options__effect-dropdown > button > span:first-child {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.filter-options__effect-text {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-options__effect-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.4rem;
+}
+
+.filter-options__effect-icon--menu {
+  margin-right: 0.5rem;
+}
+
+.filter-options__effect-dropdown [role='listbox'] {
+  min-width: 16rem;
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 1px solid #cfcfcf;
+  border-radius: 0.4rem;
+  background: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+  list-style: none;
+}
+
+.filter-options__effect-dropdown [role='listbox'] li {
+  list-style: none;
+}
+
+.filter-options__effect-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.filter-options__effect-option:hover,
+.filter-options__effect-option:focus {
+  background: #f3f4f6;
+  outline: none;
+}
+
+.filter-options__effect-option--selected {
+  background: #eef6ff;
+  font-weight: 600;
 }
 
 .filter-options__period-effect-group {

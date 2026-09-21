@@ -8,6 +8,7 @@ import AlertBody from './AlertBody';
 interface AlertsViewerState {
   searchValue: string;
   selectedAlert: Alert | null;
+  selectedEffect: string;
   showExpiredAlerts: boolean,
   showNonExpiredAlerts: boolean,
   sortDirection: 'asc' | 'desc';
@@ -16,6 +17,7 @@ interface AlertsViewerState {
   loading: boolean;
 }
 
+// Returns the current time in seconds
 const today = () =>  Math.floor(Date.now() / 1000);
 
 export default class AlertsViewer extends React.Component<AlertsViewerProps, AlertsViewerState> {
@@ -23,6 +25,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     super(props);
     this.state = {
       searchValue: '',
+      selectedEffect: '',
       showExpiredAlerts: false,
       showNonExpiredAlerts: true,
       sortDirection: 'desc',
@@ -45,12 +48,13 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return;
       }
 
-      const now = today()
+      const NOW_SECONDS = today()
       // Alerts API only supports pastalerts from the past 31 days. If an alert was visible to the public in this window, it will be returned.
-      const THIRTY_ONE_DAYS = 2678400
-      const pastAlertsStartWindow = (now - THIRTY_ONE_DAYS)
+      const DEFAULT_PAST_ALERTS_TIMEFRAME_SECONDS = 2678400
+      const pastAlertsTimeframe = this.props.config?.pastAlertsTimeframe ?? DEFAULT_PAST_ALERTS_TIMEFRAME_SECONDS
+      const pastAlertsStartWindow = (NOW_SECONDS - pastAlertsTimeframe)
 
-      const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${now}`
+      const pastAlertsDateTimeURL = `${this.props.apiUrl}&from_datetime=${pastAlertsStartWindow}&to_datetime=${NOW_SECONDS}`;
 
       fetch(pastAlertsDateTimeURL)
         .then((response) => {
@@ -60,13 +64,43 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
           return response.json();
         })
         .then((data) => {
-          this.setState({ alerts: data.alerts, error: null, loading: false });
+          const alerts = this.filterAlertsByEffectTimeframe(data.alerts, NOW_SECONDS);
+          this.setState({ alerts, error: null, loading: false });
         })
         .catch((err: Error) => {
           this.setState({ error: err.message, loading: false });
         });
     }
   }
+
+  private filterAlertsByEffectTimeframe = (alerts: Alert[], NOW_SECONDS: number): Alert[] => {
+    if (!this.props.config?.customEffectTimeframeFilter) {
+      return alerts;
+    }
+
+    const configuredEffects = this.props.config.effects ?? [];
+
+    return alerts.filter((alert) => {
+      const alertEffect = (alert.effect_name || alert.effect).toLowerCase();
+      const configuredEffect = configuredEffects.find((effect) => effect.name.toLowerCase() === alertEffect);
+
+      if (configuredEffect?.timeframe === undefined) {
+        return true;
+      }
+
+      const timeframeStart = NOW_SECONDS - configuredEffect.timeframe;
+      return (alert.effect_periods ?? []).some((period) => {
+        const effectStart = Number(period.effect_start);
+        const effectEnd = period.effect_end ? Number(period.effect_end) : NOW_SECONDS;
+
+        if (Number.isNaN(effectStart) || Number.isNaN(effectEnd)) {
+          return false;
+        }
+
+        return effectEnd >= timeframeStart && effectStart <= NOW_SECONDS;
+      });
+    });
+  };
 
   private matchesSearchFilter = (alert: Alert, searchValue: string): boolean => {
     if (!searchValue.trim()) return true;
@@ -84,7 +118,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
       return showExpiredAlerts;
     }
 
-    const now = today()
+    const NOW_SECONDS = today()
     const effectPeriods = alert.effect_periods ?? [];
 
     if (showNonExpiredAlerts) {
@@ -97,10 +131,10 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         }
 
         if (period.effect_end) {
-          return !Number.isNaN(end) && start <= now && now <= end;
+          return !Number.isNaN(end) && start <= NOW_SECONDS && NOW_SECONDS <= end;
         }
 
-        return start <= now;
+        return start <= NOW_SECONDS;
       });
     }
 
@@ -113,7 +147,7 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         return false;
       }
 
-      return end < now && start < now;
+      return end < NOW_SECONDS && start < NOW_SECONDS;
     });
     }
     return true;
@@ -133,12 +167,19 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   private getFilteredAlerts = (): Alert[] => {
-    const { alerts, searchValue, showExpiredAlerts, showNonExpiredAlerts, sortDirection } = this.state;
+    const { alerts, searchValue, selectedEffect, showExpiredAlerts, showNonExpiredAlerts, sortDirection } = this.state;
 
     const filteredAlerts = alerts.filter((alert) => {
       const matchesSearch = this.matchesSearchFilter(alert, searchValue);
       const matchesPeriodEffect = this.matchesPeriodEffectFilter(alert, showExpiredAlerts, showNonExpiredAlerts);
-      return matchesSearch && matchesPeriodEffect;
+      
+      const matchesSelectedEffect = !selectedEffect || alert.effect_name?.toLowerCase() === selectedEffect.toLowerCase() || alert.effect?.toLowerCase() === selectedEffect.toLowerCase();
+      return matchesSearch && matchesPeriodEffect && matchesSelectedEffect;
+    });
+
+    return filteredAlerts.sort((a, b) => {
+      const difference = this.getAlertStartTime(a) - this.getAlertStartTime(b);
+      return sortDirection === 'asc' ? difference : -difference;
     });
 
     return filteredAlerts.sort((a, b) => {
@@ -151,6 +192,14 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
     this.setState({ selectedAlert: alert });
   };
 
+  private getEffectOptions = (): { name: string }[] => {
+    const effectNames = (this.state.alerts ?? [])
+      .map((alert) => alert.effect_name || alert.effect)
+      .filter(Boolean);
+
+    return Array.from(new Set(effectNames)).map((name) => ({ name }));
+  };
+
   private toggleSortDirection = (): void => {
     this.setState((prevState) => ({
       sortDirection: prevState.sortDirection === 'asc' ? 'desc' : 'asc'
@@ -158,7 +207,8 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
   };
 
   render() {
-    const { searchValue, showExpiredAlerts, showNonExpiredAlerts, sortDirection, loading, selectedAlert } = this.state;
+    const { searchValue, selectedEffect, showExpiredAlerts, showNonExpiredAlerts, sortDirection, loading, selectedAlert } = this.state;
+    const effects = this.props.config?.effects ?? this.getEffectOptions();
 
     const filteredAlerts = this.getFilteredAlerts();
     return (
@@ -168,11 +218,15 @@ export default class AlertsViewer extends React.Component<AlertsViewerProps, Ale
         </div>
         <div className="alerts-viewer__content">
           <FilterOptions
+            effects={effects}
             searchValue={searchValue}
+            selectedEffect={selectedEffect}
             showExpiredAlerts={showExpiredAlerts}
             showNonExpiredAlerts={showNonExpiredAlerts}
+            EffectIcon={this.props.EffectIcon}
             sortDirection={sortDirection}
             onSearchChange={(value) => this.setState({ searchValue: value })}
+            onEffectChange={(value) => this.setState({ selectedEffect: value })}
             onExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showExpiredAlerts: e.target.checked})}
             onNonExpiredAlertsChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ showNonExpiredAlerts: e.target.checked})}
             onSortToggle={this.toggleSortDirection}
