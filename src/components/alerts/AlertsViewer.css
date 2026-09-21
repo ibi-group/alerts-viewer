@@ -63,9 +63,23 @@
 
 .filter-options__controls {
   display: flex;
-  align-items: center;
   gap: 0.75rem;
+}
+
+.filter-options__secondary-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.filter-options__secondary-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .filter-options__search,
@@ -98,11 +112,30 @@
   background: transparent;
   font: inherit;
   color: inherit;
+  margin-left: 10px;
+  width: 100%;
 }
 
-.filter-options__input {
+.filter-options__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  height: 2.5rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.filter-options__sort-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #666;
+  flex-shrink: 0;
   margin-left: 0.5rem;
-  width: 100%;
 }
 
 .filter-options__effect-group {
