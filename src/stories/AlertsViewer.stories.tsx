@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import AlertsViewer from '../components/alerts/AlertsViewer';
+import AlertsViewer from '../components/AlertsViewer';
 import alertMocks from './alert-mock.json';
 
 const meta = {

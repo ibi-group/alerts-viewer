@@ -24,6 +24,7 @@ export type AlertImage = {
 }
 
 export type Alert = {
+  id: number;
   alert_id: number;
   effect_name: string;
   effect: string;
