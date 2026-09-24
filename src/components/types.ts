@@ -24,7 +24,6 @@ export type AlertImage = {
 }
 
 export type Alert = {
-  id: number;
   alert_id: number;
   effect_name: string;
   effect: string;
@@ -50,7 +49,7 @@ export type Alert = {
   alternate_stops?: unknown[];
 }
 
-export interface AlertsViewerProps {
+export type AlertsViewerProps = {
   alerts?: Alert[];
   apiUrl?: string;
   EffectIcon?: React.ComponentType<{ effect: string }>;

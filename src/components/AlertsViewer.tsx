@@ -4,12 +4,13 @@ import "./AlertsViewer.css";
 
 import AlertList from "./AlertList";
 import AlertItemBody from "./AlertItemBody";
-import type { Alert } from "./types";
+import type { Alert, AlertsViewerProps } from "./types";
 
-// TODO: urlconfig that defines how the url should be fetched
-const AlertsViewer = ({ apiUrl: string }) => {
-    const testAlerts = [{ id: 1, name: "first alert", body: "second" }, { id: 2, name: "second" }]
-    const [alerts, setAlerts] = useState<Alert[]>(testAlerts)
+// TODO: urlconfig that defines how the url should be fetched 
+const AlertsViewer = (props: AlertsViewerProps) => {
+    const { apiUrl } = props;
+    //const testAlerts = [{ id: 1, name: "first alert", body: "second" }, { id: 2, name: "second" }]
+    const [alerts, setAlerts] = useState<Alert[]>(props.alerts || []);
     const [selectedAlertId, setSelectedAlertId] = useState<number | null>(null)
 
     useEffect(() => {
@@ -24,8 +25,8 @@ const AlertsViewer = ({ apiUrl: string }) => {
         <div className="alerts-viewer">
             <h1>Alerts!</h1>
             <div className="content">
-                <AlertList alerts={testAlerts} onAlertClick={setSelectedAlertId} />
-                <AlertItemBody selectedAlert={alerts.find(a => a.id === selectedAlertId)} />
+                <AlertList alerts={alerts} onAlertClick={setSelectedAlertId} />
+                <AlertItemBody selectedAlert={alerts.find(a => a.alert_id === selectedAlertId)} />
             </div>
         </div>
     );

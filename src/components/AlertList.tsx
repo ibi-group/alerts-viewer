@@ -1,5 +1,5 @@
 // TODO: Move to dedicated non-propieatry types file
-type Alert = { id: number, name: string, body?: string }
+import type { Alert } from "./types"
 
 type AlertListProps = {
   alerts: Alert[];
@@ -11,12 +11,14 @@ const AlertList = ({ alerts, onAlertClick }: AlertListProps) => {
     <div className="alert-list">
       <ul>
         {alerts.map(a => (
-          <li key={a.id}>
+          <li key={a.alert_id}>
             <a href="#" onClick={(e) => {
               e.preventDefault();
-              onAlertClick && onAlertClick(a.id);
+              if (onAlertClick) {
+                onAlertClick(a.alert_id);
+              }
             }}>
-              {a.name}
+              {a.atis_title || a.header_text}
             </a>
           </li>
         ))}
