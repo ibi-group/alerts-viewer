@@ -23,7 +23,7 @@ export type AlertImage = {
   sort_order: string;
 }
 
-export type Alert = {
+export type RawAlert = {
   alert_id: number;
   effect_name: string;
   effect: string;
@@ -49,8 +49,14 @@ export type Alert = {
   alternate_stops?: unknown[];
 }
 
+export type FormattedAlert = {
+  alert_id: number;
+  bodyTitle: string;
+  listTitle: string;
+}
+
 export type AlertsViewerProps = {
-  alerts?: Alert[];
+  alerts?: RawAlert[] | FormattedAlert[];
   apiUrl?: string;
   EffectIcon?: React.ComponentType<{ effect: string }>;
 }

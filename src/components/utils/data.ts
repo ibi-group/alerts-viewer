@@ -1,4 +1,4 @@
-const fetchFromAtis = async (url: string) => {
+const fetchFromTransitAlerts = async (url: string | undefined) => {
     const now = Math.floor(Date.now() / 1000);
     // Alerts API only supports pastalerts from the past 31 days.
     const THIRTY_ONE_DAYS_IN_SECONDS = 2_678_400;
@@ -12,16 +12,16 @@ const fetchFromAtis = async (url: string) => {
 };
 
 // TODO: TYPES
-const formatFromAtis = (rawAtis: any) => {
+const formatData = (rawAtis: any) => {
     const { alerts } = rawAtis.data;
     // TODO FIX
     return alerts.map((a) => {
         return {
             id: a.alert_id,
-            name: a.header_text,
-            body: a.description_text,
+            bodyTitle: a.header_text,
+            listTitle: a.atis_title || a.short_header_text || a.header_text,
         };
     });
 };
 
-export {formatFromAtis, fetchFromAtis}
+export {formatData, fetchFromTransitAlerts}
