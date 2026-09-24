@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchFromAtis, formatFromAtis } from "./utils/atis";
+import "./AlertsViewer.css";
 
 import AlertList from "./AlertList";
 import AlertItemBody from "./AlertItemBody";
@@ -20,10 +21,12 @@ const AlertsViewer = ({ apiUrl: string }) => {
     }, [])
 
     return (
-        <div>
+        <div className="alerts-viewer">
             <h1>Alerts!</h1>
-            <AlertList alerts={testAlerts} onAlertClick={setSelectedAlertId} />
-            <AlertItemBody selectedAlert={alerts.find(a => a.id === selectedAlertId)} />
+            <div className="content">
+                <AlertList alerts={testAlerts} onAlertClick={setSelectedAlertId} />
+                <AlertItemBody selectedAlert={alerts.find(a => a.id === selectedAlertId)} />
+            </div>
         </div>
     );
 };

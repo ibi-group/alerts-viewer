@@ -8,18 +8,20 @@ type AlertListProps = {
 
 const AlertList = ({ alerts, onAlertClick }: AlertListProps) => {
   return (
-    <ul>
-      {alerts.map(a => (
-        <li key={a.id}>
-          <a href="#" onClick={(e) => {
-            e.preventDefault();
-            onAlertClick && onAlertClick(a.id);
-          }}>
-            {a.name}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div className="alert-list">
+      <ul>
+        {alerts.map(a => (
+          <li key={a.id}>
+            <a href="#" onClick={(e) => {
+              e.preventDefault();
+              onAlertClick && onAlertClick(a.id);
+            }}>
+              {a.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
