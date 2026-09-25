@@ -49,14 +49,15 @@ export type RawAlert = {
   alternate_stops?: unknown[];
 }
 
-export type FormattedAlert = {
-  alert_id: number;
+export type Alert = {
+  id: number;
   bodyTitle: string;
+  effectName: string;
   listTitle: string;
 }
 
 export type AlertsViewerProps = {
-  alerts?: RawAlert[] | FormattedAlert[];
+  alerts?: RawAlert[];
   apiUrl?: string;
   EffectIcon?: React.ComponentType<{ effect: string }>;
 }

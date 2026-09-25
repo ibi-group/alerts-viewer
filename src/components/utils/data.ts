@@ -1,3 +1,5 @@
+import type { Alert, RawAlert } from "../types";
+
 const fetchFromTransitAlerts = async (url: string | undefined) => {
     const now = Math.floor(Date.now() / 1000);
     // Alerts API only supports pastalerts from the past 31 days.
@@ -11,14 +13,13 @@ const fetchFromTransitAlerts = async (url: string | undefined) => {
     return await result.json();
 };
 
-// TODO: TYPES
-const formatData = (rawAtis: any) => {
-    const { alerts } = rawAtis.data;
+const formatData = (data: RawAlert[]): Alert[] => {
     // TODO FIX
-    return alerts.map((a) => {
+    return data.map((a: RawAlert) => {
         return {
             id: a.alert_id,
             bodyTitle: a.header_text,
+            effectName: a.effect_name,
             listTitle: a.atis_title || a.short_header_text || a.header_text,
         };
     });

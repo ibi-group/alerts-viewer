@@ -11,14 +11,14 @@ const AlertList = ({ alerts, onAlertClick }: AlertListProps) => {
     <div className="alert-list">
       <ul>
         {alerts.map(a => (
-          <li key={a.alert_id}>
+          <li key={a.id}>
             <a href="#" onClick={(e) => {
               e.preventDefault();
               if (onAlertClick) {
-                onAlertClick(a.alert_id);
+                onAlertClick(a.id);
               }
             }}>
-              {a.atis_title || a.header_text}
+              {a.listTitle}
             </a>
           </li>
         ))}

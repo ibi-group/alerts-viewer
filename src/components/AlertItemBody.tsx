@@ -7,8 +7,8 @@ const AlertItemBody = ({ selectedAlert }: { selectedAlert: Alert | undefined }) 
 
   return (
     <div className="alert-item-body">
-      <h2>{selectedAlert.header_text}</h2>
-      <p>{selectedAlert.description_text}</p>
+      <h2>{selectedAlert.bodyTitle}</h2>
+      <p>{selectedAlert.effectName}</p>
     </div>
   )
 }
