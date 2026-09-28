@@ -31,6 +31,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
         fetchAlerts()
     }, [props.alerts, props.apiUrl])
 
+    // TODO: filter by route id/name. add boolean filters.
     const filterAlerts = (searchTerm: string) => {
         if (!searchTerm) {
             setFilteredAlerts(alerts);
