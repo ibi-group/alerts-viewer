@@ -19,6 +19,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
         async function fetchAlerts() {
             if (!props.apiUrl) { // if no apiUrl is provided, use the alerts passed in props
                 setAlerts(formatData(props.alerts || []));
+                setFilteredAlerts(formatData(props.alerts || []));
                 return;
             }
             setLoading(true);
