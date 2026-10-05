@@ -42,7 +42,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     };
 
     return (
-        //add loading/error state
+        // TODO:add loading/error state
         <div className="alerts-viewer">
             <h1>Alerts!</h1>
             <InputOptions filter={filterAlerts} />
