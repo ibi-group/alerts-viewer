@@ -1,11 +1,13 @@
-import {useState } from "react";
-
-const InputOptions = ({ filter }: { filter: (searchTerm: string) => void }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const InputOptions = ({
+    searchTerm,
+    setSearchTerm
+}: { 
+    searchTerm: string;
+    setSearchTerm: (term: string) => void;
+}) => {
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
-        filter(event.target.value);
     }
 
     return (
