@@ -30,7 +30,14 @@
   outline: none;
 }
 
-.search-icon {
+.search-icon,
+.filter-icon {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.effect-dropdown {
+  margin-left: 1rem;
+  display: inline-flex;
+  align-items: center;
 }

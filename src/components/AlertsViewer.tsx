@@ -10,10 +10,11 @@ import type { Alert, AlertsViewerProps } from "./types";
 // TODO: urlconfig that defines how the url should be fetched 
 const AlertsViewer = (props: AlertsViewerProps) => {
     const [alerts, setAlerts] = useState<Alert[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [selectedAlertId, setSelectedAlertId] = useState<number | null>(null)
+    const [selectedAlertId, setSelectedAlertId] = useState<number>(0)
+    const [selectedEffect, setSelectedEffect] = useState<string>("")
 
     useEffect(() => {
         async function fetchAlerts() {
@@ -39,9 +40,13 @@ const AlertsViewer = (props: AlertsViewerProps) => {
         // TODO:add loading/error state
         <div className="alerts-viewer">
             <h1>Alerts!</h1>
-            <InputOptions 
+            <InputOptions
+                effects={props.config?.effects}
+                EffectIcon={props.EffectIcon}
                 searchTerm={searchTerm}
+                selectedEffect={selectedEffect}
                 setSearchTerm={setSearchTerm}
+                setSelectedEffect={setSelectedEffect}
             />
             <div className="alert-content">
                 <AlertList alerts={filterAlerts()} onAlertClick={setSelectedAlertId} />

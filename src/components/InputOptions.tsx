@@ -4,23 +4,80 @@ import { SortAmountUp } from '@styled-icons/fa-solid/SortAmountUp'
 import { Filter } from '@styled-icons/fa-solid/Filter'
 import { Dropdown } from '@opentripplanner/building-blocks'
 
-const EffectDropdown = () => {
+import type { Effect } from './types'
+
+const EffectDropdown = ({
+    selectedEffect, 
+    setSelectedEffect,
+    effects,
+    EffectIcon
+}: { 
+    selectedEffect: string; 
+    setSelectedEffect: (effect: string) => void 
+    effects: Effect[] | undefined;
+    EffectIcon: React.ComponentType<{ effect: string }> | undefined;
+}) => {
+
+    const handleEffectChange = (effect: string) => {
+        setSelectedEffect(effect);
+    }
+
     return (
-        <select className="effect-dropdown">
-            <option value="">All Effects</option>
-            <option value="delay">Delay</option>
-            <option value="detour">Detour</option>
-            <option value="suspension">Suspension</option>
-        </select>
+        <Dropdown 
+            className="effect-dropdown"
+            id="effect-dropdown"
+            label="Filter alerts by effect"
+            listLabel="Alert effects"
+            text={
+                <span className="filter-options__effect-text">
+                    <Filter className="filter-icon"/>
+                    {selectedEffect || "All Effects"}
+                </span>
+            }
+        >
+            <li>
+                <button
+                    type="button"
+                    className={`filter-options__effect-option${!selectedEffect ? ' filter-options__effect-option--selected' : ''}`}
+                    onClick={() => handleEffectChange('')}
+                >
+                    <span>All effects</span>
+                </button>
+            </li>
+            {effects?.map((effect) => (
+                <li key={effect.name}>
+                    <button
+                        type="button"
+                        className={`filter-options__effect-option${selectedEffect === effect.name ? ' filter-options__effect-option--selected' : ''}`}
+                        onClick={() => handleEffectChange(effect.name)}
+                    >
+                        {EffectIcon ? (
+                            <span className="filter-options__effect-icon filter-options__effect-icon--menu">
+                                <EffectIcon effect={effect.name} />
+                            </span>
+                        ) : null}
+                        <span>{effect.name}</span>
+                    </button>
+                </li>
+            ))}
+        </Dropdown>
     );
 };
 
 const InputOptions = ({
+    effects,
+    EffectIcon,
     searchTerm,
-    setSearchTerm
+    setSearchTerm,
+    selectedEffect,
+    setSelectedEffect
 }: { 
+    effects: Effect[] | undefined;
+    EffectIcon: React.ComponentType<{ effect: string }> | undefined;
     searchTerm: string;
     setSearchTerm: (term: string) => void;
+    selectedEffect: string;
+    setSelectedEffect: (effect: string) => void;
 }) => {
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +97,12 @@ const InputOptions = ({
                     value={searchTerm}
                 />
             </div>
-            <EffectDropdown />
+            <EffectDropdown 
+                selectedEffect={selectedEffect}
+                setSelectedEffect={setSelectedEffect}
+                effects={effects}
+                EffectIcon={EffectIcon}
+            />
         </div>
     );
 };
