@@ -1,11 +1,17 @@
 .alerts-viewer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
 .alert-content {
   display: flex;
   flex-direction: row;
+}
+
+.input-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
 }

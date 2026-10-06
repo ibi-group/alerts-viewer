@@ -24,7 +24,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
             setLoading(true);
             // TODO: handle errors
             const fetchedAlerts = await fetchFromTransitAlerts(props.apiUrl)
-            setAlerts(formatData(fetchedAlerts.data))
+            setAlerts(formatData(fetchedAlerts.alerts))
             setLoading(false);
         }
         fetchAlerts()

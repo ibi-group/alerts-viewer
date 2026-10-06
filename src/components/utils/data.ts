@@ -14,7 +14,7 @@ const fetchFromTransitAlerts = async (url: string | undefined) => {
 };
 
 const formatData = (data: RawAlert[]): Alert[] => {
-    // TODO FIX
+    // TODO: add relevant fields
     return data.map((a: RawAlert) => {
         return {
             id: a.alert_id,
