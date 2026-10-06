@@ -15,3 +15,22 @@
   align-items: center;
   margin-bottom: 1rem;
 }
+
+.route-search {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.route-search-input {
+  border: none;
+  outline: none;
+}
+
+.search-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
