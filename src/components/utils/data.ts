@@ -16,11 +16,15 @@ const fetchFromTransitAlerts = async (url: string | undefined) => {
 const formatData = (data: RawAlert[]): Alert[] => {
     // TODO: add relevant fields
     return data.map((a: RawAlert) => {
+        const routeNames: string[] = a.affected_services.services.map((s) => s.route_name);
+        const routeIds: string[] = a.affected_services.services.map((s) => s.route_id);
         return {
             id: a.alert_id,
             bodyTitle: a.header_text,
             effectName: a.effect_name,
             listTitle: a.atis_title || a.short_header_text || a.header_text,
+            routeNames,
+            routeIds,
         };
     });
 };

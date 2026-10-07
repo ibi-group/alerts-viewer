@@ -15,6 +15,8 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedAlertId, setSelectedAlertId] = useState<number>(0)
     const [selectedEffect, setSelectedEffect] = useState<string>("")
+    const [showExpiredAlerts, setShowExpiredAlerts] = useState<boolean>(false)
+    const [showActiveAlerts, setShowActiveAlerts] = useState<boolean>(true)
 
     useEffect(() => {
         async function fetchAlerts() {
@@ -31,9 +33,22 @@ const AlertsViewer = (props: AlertsViewerProps) => {
         fetchAlerts()
     }, [props.alerts, props.apiUrl])
 
-    // TODO: filter by route id/name. add boolean filters.
+    // TODO: add boolean filters.
     const filterAlerts = () => {
-        return alerts.filter(alert => alert.bodyTitle.includes(searchTerm));
+        return alerts.filter(alert => {
+            const effectMatches = selectedEffect ? alert.effectName === selectedEffect : true;
+            
+            const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+            const routes = [...(alert.routeNames ?? []), ...(alert.routeIds ?? [])];
+            const searchMatches = normalizedSearchTerm
+                ? routes.some(route =>
+                    typeof route === "string" &&
+                    route.toLowerCase().includes(normalizedSearchTerm)
+                )
+                : true;
+
+            return effectMatches && searchMatches;
+        });
     };
 
     return (
@@ -47,6 +62,10 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 selectedEffect={selectedEffect}
                 setSearchTerm={setSearchTerm}
                 setSelectedEffect={setSelectedEffect}
+                showExpiredAlerts={showExpiredAlerts}
+                showActiveAlerts={showActiveAlerts}
+                setShowExpiredAlerts={setShowExpiredAlerts}
+                setShowActiveAlerts={setShowActiveAlerts}
             />
             <div className="alert-content">
                 <AlertList alerts={filterAlerts()} onAlertClick={setSelectedAlertId} />

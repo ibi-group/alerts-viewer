@@ -54,6 +54,8 @@ export type Alert = {
   bodyTitle: string;
   effectName: string;
   listTitle: string;
+  routeIds: string[];
+  routeNames: string[];
 }
 
 export type Effect = {

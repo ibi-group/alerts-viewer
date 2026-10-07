@@ -70,7 +70,11 @@ const InputOptions = ({
     searchTerm,
     setSearchTerm,
     selectedEffect,
-    setSelectedEffect
+    setSelectedEffect,
+    showExpiredAlerts,
+    showActiveAlerts,
+    setShowExpiredAlerts,
+    setShowActiveAlerts
 }: { 
     effects: Effect[] | undefined;
     EffectIcon: React.ComponentType<{ effect: string }> | undefined;
@@ -78,6 +82,10 @@ const InputOptions = ({
     setSearchTerm: (term: string) => void;
     selectedEffect: string;
     setSelectedEffect: (effect: string) => void;
+    showExpiredAlerts: boolean;
+    showActiveAlerts: boolean;
+    setShowExpiredAlerts: (show: boolean) => void;
+    setShowActiveAlerts: (show: boolean) => void;
 }) => {
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,23 +94,43 @@ const InputOptions = ({
 
     return (
         <div className="input-options">
-            <div className="route-search">
-                <Search className="search-icon" />
-                <input
-                    className="route-search-input"
-                    id="route-search-input"
-                    onChange={handleSearchChange}
-                    placeholder="Search by route ID or name"
-                    type="text"
-                    value={searchTerm}
+            <div className="option-row">
+                <div className="route-search">
+                    <Search className="search-icon" />
+                    <input
+                        className="route-search-input"
+                        id="route-search-input"
+                        onChange={handleSearchChange}
+                        placeholder="Search by route ID or name"
+                        type="text"
+                        value={searchTerm}
+                    />
+                </div>
+                <EffectDropdown
+                    selectedEffect={selectedEffect}
+                    setSelectedEffect={setSelectedEffect}
+                    effects={effects}
+                    EffectIcon={EffectIcon}
                 />
             </div>
-            <EffectDropdown 
-                selectedEffect={selectedEffect}
-                setSelectedEffect={setSelectedEffect}
-                effects={effects}
-                EffectIcon={EffectIcon}
-            />
+            <div className="option-row ">
+                <label className="filter-options__checkbox-label">
+                    <input
+                        type="checkbox"
+                        checked={showActiveAlerts}
+                        onChange={() => setShowActiveAlerts(!showActiveAlerts)}
+                    />
+                    Non-expired alerts
+                </label>
+                <label className="filter-options__checkbox-label">
+                    <input
+                        type="checkbox"
+                        checked={showExpiredAlerts}
+                        onChange={() => setShowExpiredAlerts(!showExpiredAlerts)}
+                    />
+                    Expired alerts
+                </label>
+            </div>
         </div>
     );
 };
