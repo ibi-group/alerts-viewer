@@ -23,6 +23,7 @@ const EffectDropdown = ({
     }
 
     return (
+        // TODO: cleanup styling/classnames
         <Dropdown 
             className="effect-dropdown"
             id="effect-dropdown"
