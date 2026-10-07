@@ -17,6 +17,15 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     const [selectedEffect, setSelectedEffect] = useState<string>("")
     const [showExpiredAlerts, setShowExpiredAlerts] = useState<boolean>(false)
     const [showActiveAlerts, setShowActiveAlerts] = useState<boolean>(true)
+    const [now, setNow] = useState<number>(0)
+
+    useEffect(() => {
+        const updateNow = () => setNow(Math.floor(Date.now() / 1000));
+        updateNow();
+
+        const intervalId = window.setInterval(updateNow, 60_000);
+        return () => window.clearInterval(intervalId);
+    }, [])
 
     useEffect(() => {
         async function fetchAlerts() {
@@ -33,7 +42,6 @@ const AlertsViewer = (props: AlertsViewerProps) => {
         fetchAlerts()
     }, [props.alerts, props.apiUrl])
 
-    // TODO: add boolean filters.
     const filterAlerts = () => {
         return alerts.filter(alert => {
             const effectMatches = selectedEffect ? alert.effectName === selectedEffect : true;
@@ -47,7 +55,29 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 )
                 : true;
 
-            return effectMatches && searchMatches;
+            const effectPeriods = alert.effectPeriods ?? [];
+            const isActive = effectPeriods.some(period => {
+                if (!period.effect_start.trim()) return false;
+
+                const start = Number(period.effect_start);
+                if (!Number.isFinite(start) || now < start) return false;
+
+                if (!period.effect_end?.trim()) return true;
+
+                const end = Number(period.effect_end);
+                return Number.isFinite(end) && now <= end;
+            });
+            const isExpired = effectPeriods.some(period => {
+                if (!period.effect_end?.trim()) return false;
+
+                const end = Number(period.effect_end);
+                return Number.isFinite(end) && now > end;
+            });
+            const statusMatches =
+                (showActiveAlerts && isActive) ||
+                (showExpiredAlerts && isExpired);
+
+            return effectMatches && searchMatches && statusMatches;
         });
     };
 
