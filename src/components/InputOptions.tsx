@@ -114,7 +114,7 @@ const InputOptions = ({
                 />
             </div>
             <div className="option-row ">
-                <label className="filter-options__checkbox-label">
+                <label className="checkbox-label">
                     <input
                         type="checkbox"
                         checked={showActiveAlerts}
@@ -122,7 +122,7 @@ const InputOptions = ({
                     />
                     Non-expired alerts
                 </label>
-                <label className="filter-options__checkbox-label">
+                <label className="checkbox-label">
                     <input
                         type="checkbox"
                         checked={showExpiredAlerts}

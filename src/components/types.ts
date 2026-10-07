@@ -53,6 +53,7 @@ export type Alert = {
   id: number;
   bodyTitle: string;
   effectName: string;
+  effectPeriods?: EffectPeriod[];
   listTitle: string;
   routeIds: string[];
   routeNames: string[];
