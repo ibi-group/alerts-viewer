@@ -20,14 +20,6 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     const [now, setNow] = useState<number>(0)
 
     useEffect(() => {
-        const updateNow = () => setNow(Math.floor(Date.now() / 1000));
-        updateNow();
-
-        const intervalId = window.setInterval(updateNow, 60_000);
-        return () => window.clearInterval(intervalId);
-    }, [])
-
-    useEffect(() => {
         async function fetchAlerts() {
             if (!props.apiUrl) { // if no apiUrl is provided, use the alerts passed in props
                 setAlerts(formatData(props.alerts || []));
@@ -56,6 +48,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 : true;
 
             const effectPeriods = alert.effectPeriods ?? [];
+            const now = Math.floor(Date.now() / 1000);
             const isActive = effectPeriods.some(period => {
                 if (!period.effect_start.trim()) return false;
 
