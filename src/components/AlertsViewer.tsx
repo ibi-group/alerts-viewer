@@ -17,7 +17,6 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     const [selectedEffect, setSelectedEffect] = useState<string>("")
     const [showExpiredAlerts, setShowExpiredAlerts] = useState<boolean>(false)
     const [showActiveAlerts, setShowActiveAlerts] = useState<boolean>(true)
-    const [now, setNow] = useState<number>(0)
 
     useEffect(() => {
         async function fetchAlerts() {
@@ -50,21 +49,21 @@ const AlertsViewer = (props: AlertsViewerProps) => {
             const effectPeriods = alert.effectPeriods ?? [];
             const now = Math.floor(Date.now() / 1000);
             const isActive = effectPeriods.some(period => {
-                if (!period.effect_start.trim()) return false;
+                if (!period.effect_start) return false;
 
                 const start = Number(period.effect_start);
-                if (!Number.isFinite(start) || now < start) return false;
+                if (now < start) return false;
 
-                if (!period.effect_end?.trim()) return true;
+                if (!period.effect_end) return true;
 
                 const end = Number(period.effect_end);
-                return Number.isFinite(end) && now <= end;
+                return now <= end;
             });
             const isExpired = effectPeriods.some(period => {
-                if (!period.effect_end?.trim()) return false;
+                if (!period.effect_end) return false;
 
                 const end = Number(period.effect_end);
-                return Number.isFinite(end) && now > end;
+                return now > end;
             });
             const statusMatches =
                 (showActiveAlerts && isActive) ||
