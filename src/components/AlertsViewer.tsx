@@ -75,7 +75,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
 
     return (
         // TODO:add loading/error state
-        <div className="alerts-viewer">
+        <div className="alerts-viewer container">
             <h1>Alerts!</h1>
             <InputOptions
                 effects={props.config?.effects}

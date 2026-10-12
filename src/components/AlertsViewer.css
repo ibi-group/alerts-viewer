@@ -4,11 +4,6 @@
   justify-content: center;
 }
 
-.alert-content {
-  display: flex;
-  flex-direction: row;
-}
-
 .input-options {
   display: flex;
   flex-direction: column;
@@ -47,4 +42,21 @@
   margin-left: 1rem;
   display: inline-flex;
   align-items: center;
+}
+
+.alert-content {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.alert-list {
+  width: 40em;
+  background-color: #D8D8D8;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.alert-item-body {
+  width: 100%;
 }
