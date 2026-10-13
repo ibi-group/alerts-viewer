@@ -21,11 +21,15 @@ const formatData = (data: RawAlert[]): Alert[] => {
         return {
             id: a.alert_id,
             bodyTitle: a.header_text,
+            causeName: a.cause_name,
+            description: a.description_text,
             effectName: a.effect_name,
             effectPeriods: a.effect_periods,
+            lastModified: a.last_modified_dt,
             listTitle: a.atis_title || a.short_header_text || a.header_text,
             routeNames,
             routeIds,
+            tags: a.tags,
         };
     });
 };

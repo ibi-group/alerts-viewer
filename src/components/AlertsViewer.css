@@ -78,6 +78,17 @@
 
 .alert-item-body {
   flex: 0 0 40%;
-  min-width: 0;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.body-header {
+ padding-bottom: 1rem;
+}
+
+.body-header > h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
 }

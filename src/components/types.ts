@@ -52,11 +52,15 @@ export type RawAlert = {
 export type Alert = {
   id: number;
   bodyTitle: string;
+  causeName?: string
+  description: string;
   effectName: string;
   effectPeriods?: EffectPeriod[];
+  lastModified: string;
   listTitle: string;
   routeIds: string[];
   routeNames: string[];
+  tags?: string[];
 }
 
 export type Effect = {
