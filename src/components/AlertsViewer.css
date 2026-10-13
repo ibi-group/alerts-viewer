@@ -59,6 +59,13 @@
   overflow-y: auto;
 }
 
+.alert-list-item {
+  margin: 1rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
 .alert-item-body {
   flex: 0 0 40%;
   min-width: 0;

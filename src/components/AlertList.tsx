@@ -3,10 +3,20 @@ import type { Alert } from "./types"
 
 type AlertListProps = {
   alerts: Alert[];
+  EffectIcon: React.ComponentType<{ effect: string }> | undefined;
   onAlertClick: (id: number) => void;
 }
 
-const AlertListItem = ({ alert, onClick }: { alert: Alert; onClick: (id: number) => void }) => {
+const AlertListItem = ({ 
+  alert,
+  EffectIcon,
+  onClick 
+}: { 
+  alert: Alert;
+  EffectIcon: React.ComponentType<{ effect: string }> | undefined;
+  onClick: (id: number) => void
+}) => {
+
   const handleClick = () => {
     onClick(alert.id);
   }
@@ -24,16 +34,17 @@ const AlertListItem = ({ alert, onClick }: { alert: Alert; onClick: (id: number)
       role="button"
       tabIndex={0}
     >
+      {EffectIcon && <EffectIcon effect={alert.effectName} />}
       {alert.listTitle}
     </div>
   )
 }
 
-const AlertList = ({ alerts, onAlertClick }: AlertListProps) => {
+const AlertList = ({ alerts, EffectIcon, onAlertClick }: AlertListProps) => {
   return (
     <div className="alert-list">
       {alerts.map(alert => (
-        <AlertListItem alert={alert} onClick={onAlertClick} />
+        <AlertListItem alert={alert} EffectIcon={EffectIcon} onClick={onAlertClick} />
       ))}
     </div>
   )

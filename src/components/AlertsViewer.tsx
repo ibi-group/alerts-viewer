@@ -90,7 +90,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 setShowActiveAlerts={setShowActiveAlerts}
             />
             <div className="alert-content">
-                <AlertList alerts={filterAlerts()} onAlertClick={setSelectedAlertId} />
+                <AlertList alerts={filterAlerts()} EffectIcon={props.EffectIcon} onAlertClick={setSelectedAlertId} />
                 <AlertItemBody selectedAlert={alerts.find(a => a.id === selectedAlertId)} />
             </div>
         </div>
