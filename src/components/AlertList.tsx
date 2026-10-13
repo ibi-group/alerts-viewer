@@ -24,7 +24,6 @@ const AlertListItem = ({
   return (
     <div
       className="alert-list-item"
-      key={alert.id}
       onClick={() => handleClick()}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -48,7 +47,7 @@ const AlertList = ({ alerts, EffectIcon, onAlertClick }: AlertListProps) => {
   return (
     <div className="alert-list">
       {alerts.map(alert => (
-        <AlertListItem alert={alert} EffectIcon={EffectIcon} onClick={onAlertClick} />
+        <AlertListItem alert={alert} key={alert.id} EffectIcon={EffectIcon} onClick={onAlertClick} />
       ))}
     </div>
   )
