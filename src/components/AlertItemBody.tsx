@@ -48,7 +48,7 @@ const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefi
         
         <BodySection title="Description" content={alert.description} />
 
-        // TODO: affected services, images
+        TODO: affected services, images
 
         {alert.lastModified && (
           <BodySection title="Last Modified" content={format(new Date(Number(alert.lastModified)), 'MM/dd/yyyy h:mm a')} />
@@ -60,7 +60,7 @@ const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefi
 
         <BodySection title="Alert ID" content={alert.id.toString()} />
 
-        // TOOD: url
+        TODO: url
       </div>
     </div>
   )
