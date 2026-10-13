@@ -34,8 +34,12 @@ const AlertListItem = ({
       role="button"
       tabIndex={0}
     >
-      {EffectIcon && <EffectIcon effect={alert.effectName} />}
-      {alert.listTitle}
+      {EffectIcon && (
+        <span>
+          <EffectIcon effect={alert.effectName} />
+        </span>
+      )}
+      <h4>{alert.listTitle}</h4>
     </div>
   )
 }

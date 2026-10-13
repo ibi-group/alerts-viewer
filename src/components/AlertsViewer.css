@@ -64,6 +64,16 @@
   padding: 2rem;
   background-color: white;
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  align-items: center;
+}
+
+.alert-list-item > h4 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .alert-item-body {
