@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import type { Alert, EffectPeriod } from "./types"
-import { B } from "@styled-icons/fa-solid";
 
 const EffectPeriods = ({ effectPeriods }: { effectPeriods: EffectPeriod[] | undefined }) => {
     if (!effectPeriods || effectPeriods.length === 0) {
@@ -49,6 +48,8 @@ const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefi
         
         <BodySection title="Description" content={alert.description} />
 
+        // TODO: affected services, images
+
         {alert.lastModified && (
           <BodySection title="Last Modified" content={format(new Date(Number(alert.lastModified)), 'MM/dd/yyyy h:mm a')} />
         )}
@@ -58,6 +59,8 @@ const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefi
         )}
 
         <BodySection title="Alert ID" content={alert.id.toString()} />
+
+        // TOOD: url
       </div>
     </div>
   )
