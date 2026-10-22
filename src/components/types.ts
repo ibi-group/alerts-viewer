@@ -51,9 +51,11 @@ export type RawAlert = {
 
 export type Alert = {
   id: number;
+  affectedServices: string[];
   bodyTitle: string;
   causeName?: string
   description: string;
+  images?: string[];
   effectName: string;
   effectPeriods?: EffectPeriod[];
   lastModified: string;
@@ -61,6 +63,7 @@ export type Alert = {
   routeIds: string[];
   routeNames: string[];
   tags?: string[];
+  url: string;
 }
 
 export type Effect = {

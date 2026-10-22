@@ -1,4 +1,6 @@
 import { format } from "date-fns";
+import { ExternalLinkAlt } from '@styled-icons/fa-solid/ExternalLinkAlt'
+
 import type { Alert, EffectPeriod } from "./types"
 
 const EffectPeriods = ({ effectPeriods }: { effectPeriods: EffectPeriod[] | undefined }) => {
@@ -21,11 +23,39 @@ const EffectPeriods = ({ effectPeriods }: { effectPeriods: EffectPeriod[] | unde
     )
 }
 
-const BodySection = ({ title, content }: { title: string; content: string }) => {
+const BodySection = ({ title, content }: { title: string; content: string | string[] }) => {
   return (
     <div className="body-section">
       <h3>{title}</h3>
-      <p>{content}</p>
+      {Array.isArray(content) ? (
+        <ul>
+          {content.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}
+        </ul>
+      ) : (
+        <p>{content}</p>
+      )}
+    </div>
+  )
+}
+
+const ExternalLink = ({ url, text }: { url: string; text?: string }) => {
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer">
+      {text}
+      <span className="external-link-icon">
+        <ExternalLinkAlt height="1.2rem" />
+      </span>
+    </a>
+  )
+}
+
+const LinkSection = ({ title, linkText, links }: { title: string; linkText?: string; links: string[] }) => {
+  return (
+    <div className="body-section">
+      <h3>{title}</h3>
+        {links.map((link, index) => (
+          <ExternalLink key={index} url={link} text={linkText} />
+        ))}
     </div>
   )
 }
@@ -44,23 +74,33 @@ const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefi
       <div className="body-content">
         <BodySection title="Effect" content={alert.effectName} />
         
-        {alert.causeName && <BodySection title="Cause" content={alert.causeName} />}
+        {alert.causeName && (
+          <BodySection title="Cause" content={alert.causeName} />
+        )}
         
         <BodySection title="Description" content={alert.description} />
 
-        TODO: affected services, images
+        {alert.affectedServices && (
+          <BodySection title="Affected Services" content={alert.affectedServices} />
+        )}
+
+        {alert.images && alert.images.length > 0 && (
+          <LinkSection title="Detour Map" linkText="View Detour Map" links={alert.images} />
+        )}
 
         {alert.lastModified && (
-          <BodySection title="Last Modified" content={format(new Date(Number(alert.lastModified)), 'MM/dd/yyyy h:mm a')} />
+          <BodySection title="Last Modified" content={format(new Date(Number(alert.lastModified) * 1000), 'MM/dd/yyyy h:mm a')} />
         )}
 
         {alert.tags && alert.tags.length > 0 && (
-          <BodySection title="Tags" content={alert.tags.join(", ")} />
+          <BodySection title="Tags" content={alert.tags} />
         )}
 
         <BodySection title="Alert ID" content={alert.id.toString()} />
 
-        TODO: url
+        {alert.url && (
+          <ExternalLink url={alert.url} text="View More Details" />
+        )}
       </div>
     </div>
   )
