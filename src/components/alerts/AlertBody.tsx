@@ -98,7 +98,7 @@ export default class AlertBody extends React.Component<AlertBodyProps> {
           )}
 
           {alert.last_modified_dt && (
-            <AlertSection title="Last Modified" text={format(new Date(Number(alert.last_modified_dt)), 'MM/dd/yyyy h:mm a')}/>
+            <AlertSection title="Last Modified" text={format(new Date(Number(alert.last_modified_dt) * 1000), 'MM/dd/yyyy h:mm a')}/>
           )}
 
           {alert.tags && alert.tags.length > 0 && (
