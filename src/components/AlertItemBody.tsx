@@ -62,7 +62,12 @@ const LinkSection = ({ title, linkText, links }: { title: string; linkText?: str
 
 const AlertItemBody = ({ selectedAlert: alert }: { selectedAlert: Alert | undefined }) => {
   if (!alert) {
-    return <div>No alert selected</div>
+    return (
+      <div className="alert-item-body empty-body">
+        <h2>No alert selected</h2>
+        <p>Select an alert to see more details</p>
+      </div>
+    )
   }
 
   return (
