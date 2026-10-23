@@ -75,7 +75,9 @@ const InputOptions = ({
   showExpiredAlerts,
   showActiveAlerts,
   setShowExpiredAlerts,
-  setShowActiveAlerts
+  setShowActiveAlerts,
+  sortDirection,
+  setSortDirection
 }: {
   effects: Effect[] | undefined;
   EffectIcon: React.ComponentType<{ effect: string }> | undefined;
@@ -87,6 +89,8 @@ const InputOptions = ({
   showActiveAlerts: boolean;
   setShowExpiredAlerts: (show: boolean) => void;
   setShowActiveAlerts: (show: boolean) => void;
+  sortDirection: 'asc' | 'desc';
+  setSortDirection: (direction: 'asc' | 'desc') => void;
 }) => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,6 +135,23 @@ const InputOptions = ({
           />
           Expired alerts
         </label>
+
+        <button
+          className="sort-button"
+          onClick={() => setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')}
+        >
+          {sortDirection === 'asc' ? (
+            <span>
+              <SortAmountUp className="sort-icon" />
+              Oldest First
+            </span>
+          ) : (
+            <span>
+              <SortAmountDown className="sort-icon" />
+              Newest First
+            </span>
+          )}
+        </button>
       </div>
     </div>
   );

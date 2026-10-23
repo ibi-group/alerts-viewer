@@ -57,7 +57,7 @@ export type Alert = {
   description: string;
   images?: string[];
   effectName: string;
-  effectPeriods?: EffectPeriod[];
+  effectPeriods: EffectPeriod[];
   lastModified: string;
   listTitle: string;
   routeIds: string[];

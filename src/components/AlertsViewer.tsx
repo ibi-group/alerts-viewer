@@ -17,6 +17,7 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     const [selectedEffect, setSelectedEffect] = useState<string>("")
     const [showExpiredAlerts, setShowExpiredAlerts] = useState<boolean>(false)
     const [showActiveAlerts, setShowActiveAlerts] = useState<boolean>(true)
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
     useEffect(() => {
         async function fetchAlerts() {
@@ -34,7 +35,8 @@ const AlertsViewer = (props: AlertsViewerProps) => {
     }, [props.alerts, props.apiUrl])
 
     const filterAlerts = () => {
-        return alerts.filter(alert => {
+        return alerts
+        .filter(alert => {
             const effectMatches = selectedEffect ? alert.effectName === selectedEffect : true;
             
             const normalizedSearchTerm = searchTerm.trim().toLowerCase();
@@ -70,6 +72,10 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 (showExpiredAlerts && isExpired);
 
             return effectMatches && searchMatches && statusMatches;
+        })
+        .sort((a,b) => {
+            const difference = Number(a.effectPeriods[0].effect_start) - Number(b.effectPeriods[0].effect_start);
+            return sortDirection === 'asc' ? difference : -difference;
         });
     };
 
@@ -88,6 +94,8 @@ const AlertsViewer = (props: AlertsViewerProps) => {
                 showActiveAlerts={showActiveAlerts}
                 setShowExpiredAlerts={setShowExpiredAlerts}
                 setShowActiveAlerts={setShowActiveAlerts}
+                sortDirection={sortDirection}
+                setSortDirection={setSortDirection}
             />
             <div className="alert-content">
                 <AlertList alerts={filterAlerts()} EffectIcon={props.EffectIcon} onAlertClick={setSelectedAlertId} />

@@ -33,7 +33,8 @@
 }
 
 .search-icon,
-.filter-icon {
+.filter-icon,
+.sort-icon {
   width: 1.5rem;
   height: 1.5rem;
 }
@@ -74,10 +75,6 @@
   margin: 0;
   font-size: 1em;
   font-weight: bold;
-}
-
-.empty-body {
-
 }
 
 .alert-item-body {
