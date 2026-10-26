@@ -16,6 +16,7 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 0.5rem;
+  gap: 1rem
 }
 
 .route-search {
@@ -30,6 +31,7 @@
 .route-search-input {
   border: none;
   outline: none;
+  width: 21rem;
 }
 
 .search-icon,
@@ -39,10 +41,24 @@
   height: 1.5rem;
 }
 
+.filter-icon,
+.effect-icon {
+  margin-right: 1rem;
+}
+
 .effect-dropdown {
   margin-left: 1rem;
   display: inline-flex;
   align-items: center;
+}
+
+.effect-option {
+  display: flex;
+  align-items: center;
+}
+
+.effect-selected {
+  font-weight: bold;
 }
 
 .alert-content {

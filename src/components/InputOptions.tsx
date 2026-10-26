@@ -30,7 +30,7 @@ const EffectDropdown = ({
       label="Filter alerts by effect"
       listLabel="Alert effects"
       text={
-        <span className="filter-options__effect-text">
+        <span>
           <Filter className="filter-icon" />
           {selectedEffect || "All Effects"}
         </span>
@@ -39,7 +39,7 @@ const EffectDropdown = ({
       <li>
         <button
           type="button"
-          className={`filter-options__effect-option${!selectedEffect ? ' filter-options__effect-option--selected' : ''}`}
+          className={`effect-option${!selectedEffect ? ' effect-selected' : ''}`}
           onClick={() => handleEffectChange('')}
         >
           <span>All effects</span>
@@ -49,11 +49,11 @@ const EffectDropdown = ({
         <li key={effect.name}>
           <button
             type="button"
-            className={`filter-options__effect-option${selectedEffect === effect.name ? ' filter-options__effect-option--selected' : ''}`}
+            className={`effect-option${selectedEffect === effect.name ? ' effect-selected' : ''}`}
             onClick={() => handleEffectChange(effect.name)}
           >
             {EffectIcon ? (
-              <span className="filter-options__effect-icon filter-options__effect-icon--menu">
+              <span className="effect-icon">
                 <EffectIcon effect={effect.name} />
               </span>
             ) : null}
